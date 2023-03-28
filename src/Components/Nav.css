@@ -1,0 +1,19 @@
+
+.navbar{
+    display: flex;
+    justify-content: center;
+    font-size: 2em;
+    font-weight: bold;
+}
+
+.navbar > li{
+    background-color: white;
+    margin: 1em;
+    border: .2em solid black;
+    padding: .5em;
+    list-style-type: none;
+}
+.navbar > li:hover{
+    background-color: gainsboro;
+
+}

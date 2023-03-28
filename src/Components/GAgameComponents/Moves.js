@@ -1,0 +1,1 @@
+export const Moves = ["RIGHT", "LEFT", "JUMP"]
