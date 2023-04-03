@@ -1,5 +1,7 @@
+import { Data, spikes } from "../Data.js"
 import {Entity} from "./Entity.js"
-import Data from "./Data.js"
+import { isColliding } from "../Collision.js"
+
 export class Individual_Bot extends Entity{
     constructor(w ,h, x, y){
         super(w, h, x, y)
@@ -8,15 +10,16 @@ export class Individual_Bot extends Entity{
         this.speed = 10
         this.onGround = false
         this.alive = true
-        this.fitness = NaN
-        this.initx = x
-        this.inity = y
-        this.bounds = Data.canvasData.w
         this.won = false
+        this.fitness = NaN
+        this.initx = Data.playerData.x
+        this.inity = Data.playerData.y
+        this.canvasData = Data.canvasData
+        this.goalData = Data.goalData
     }
 
     update(iteration){
-        if(this.alive && !this.won){
+        if(this.alive){
             if(this.moves[iteration] == "JUMP" && this.onGround){
                 this.vy = 20
                 this.onGround = false
@@ -36,8 +39,10 @@ export class Individual_Bot extends Entity{
             this.vy = 0
         }
         if(this.x < 0) this.x=0
-        if(this.x > this.bounds-this.w) this.x=this.bounds-this.w
-        this.onGround = (this.y >= 500-this.h)
+        if(this.x > this.canvasData.w-this.w) this.x=this.canvasData.w-this.w
+        if(this.x<0) this.x = 0
+        this.won = isColliding(this, this.goalData)
+        this.onGround = (this.y >= this.canvasData.h-this.h)
     }
 
     draw(context){
@@ -53,27 +58,41 @@ export class Individual_Bot extends Entity{
         context.fillRect(this.x, this.y, this.w, this.h) 
     }
 
-    evaluate(goal){
-        let a = Math.pow(goal.x+50 - this.x, 2)
-        let b = Math.pow(goal.y - this.y, 2)
+    setMoves(moves){
+        this.moves.splice(0)
+        this.moves = moves.slice(0)
+        
+    }
+
+    evaluate(){
+        let a = Math.pow(this.goalData.x+50 - this.x, 2)
+        let b = Math.pow(this.goalData.y - this.y, 2)
         this.fitness = Math.sqrt(a + b)
         if(!this.alive){
             this.fitness += 100
         }
+
+        for(let i=0; i<spikes.length; i++){
+            if(this.x > spikes[i].x + spikes[i].w){
+                this.fitness -= 100
+            }
+        }
     }
     
-    dead(){
+    kill(){
         this.alive=false
-    }
-
-    win(){
-        this.won = true
     }
 
     reset(){
         this.x = this.initx
         this.y = this.inity
         this.alive = true
-        this.won = false
+    }
+
+    clone(){
+        let clonedIndividual = new Individual_Bot(this.w, this.h, this.x, this.y)
+        clonedIndividual.setMoves(this.moves)
+        clonedIndividual.fitness = this.fitness
+        return clonedIndividual
     }
 }

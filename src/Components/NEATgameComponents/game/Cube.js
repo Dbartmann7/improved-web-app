@@ -1,13 +1,17 @@
 export class Cube {
-    constructor(w, h, x, y, id, game){
+    constructor(w, h, x, y, id, deadlyChance){
         this.id = id
         this.w = w
         this.h = h
         this.x = x
         this.y = y
-        this.game = game
         this.speed=5
-		
+        this.deadly = null
+		if(deadlyChance < 0.7){
+            this.deadly = false
+        }else{
+            this.deadly = true
+        }
     }
 
     update(){
@@ -17,7 +21,12 @@ export class Cube {
     draw(context){
         context.fillStyle = "black"
         context.fillRect(this.x-5, this.y-5, this.w+10, this.h+10) 
-        context.fillStyle = "green"
+        if(this.deadly){
+            context.fillStyle = "red"
+        }else{
+            context.fillStyle = "green"
+        }
+        
         context.fillRect(this.x, this.y, this.w, this.h) 
     }
 }

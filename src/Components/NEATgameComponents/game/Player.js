@@ -5,7 +5,7 @@ import { isColliding } from "./Collision.js";
 import Genome from "./Genome.js";
 export default class Player{
 	constructor(w, h, x, y){
-		this.brain = new Genome(2, 1);
+		this.brain = new Genome(3, 1);
 		this.fitness = null;
 
         this.x = x;
@@ -50,7 +50,7 @@ export default class Player{
 		if(nearestCube.x < this.x){
 			dist = -dist;
 		}
-        this.vision = [this.x/100, dist/100]
+        this.vision = [this.x/100, nearestCube.deadly, dist/100]
 	}
 
 	think(){
@@ -73,10 +73,14 @@ export default class Player{
 
 	update(nearestBall){
 		if(isColliding(nearestBall, this) && this.collidingWith === null){
-            
-			this.score++;
-            this.collidingWith = nearestBall;
-			console.log(this.score)
+            if(!nearestBall.deadly){
+				this.score++;
+            	this.collidingWith = nearestBall;
+				console.log(this.score)
+			}else{
+				this.kill()
+			}
+			
         }
 	}
 

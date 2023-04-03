@@ -1,30 +1,32 @@
+import Moves from "./Moves.js"
 
-import { Moves } from "./Moves"
 export class GeneticAlgorithm{
-    constructor(sAlgorithm, cRate, mRate, ){
+    constructor(popSize, sAlgorithm, cRate, mRate){
+        this.popSize = popSize
         this.sAlgorithm = sAlgorithm
         this.cRate = cRate
         this.mRate = mRate
     }
 
     evolve(population, numMoves, tourSize){
+ 
         let parents = []
         let newPopulation = []
         if(this.sAlgorithm = "tour"){
             parents = this.TourSelection(population, tourSize)
         }
 
-        for(let i=0; i<population.length; i++){
-            let par1index = Math.floor(Math.random() * parents.length)
-            let par2index = Math.floor(Math.random() * parents.length)
+        for(let i=0; i<this.popSize/2; i++){
+            let par1index = parents[Math.floor(Math.random() * parents.length)]
+            let par2index = parents[Math.floor(Math.random() * parents.length)]
             while(par2index === par1index){
-                par2index = Math.floor(Math.random() * parents.length)
+                par2index = parents[Math.floor(Math.random() * parents.length)]
             }
-            let parent1 = parents[par1index]
-            let parent2 = parents[par2index]
+            let parent1 = population[par1index].clone()
+            let parent2 = population[par2index].clone()
 
-            let child1 = parent1
-            let child2 = parent2
+            let child1 = parent1.clone()
+            let child2 = parent2.clone()
 
             if(Math.random() < this.cRate){
                 let cPoint =  Math.floor(Math.random()*numMoves)
@@ -48,20 +50,21 @@ export class GeneticAlgorithm{
                 // e.g. mpoint = block2 + index 3
                 // let mPoint = (this.game.movesInc * block) + (Math.floor(Math.random()*this.game.movesInc))
                 let mPoint = (Math.floor(Math.random()*population[0].moves.length))
-                let oldMove = child1[mPoint]
+                let oldMove = child1.moves[mPoint]
                 let newMove = Moves[Math.floor(Math.random()*Moves.length)]
                 while(newMove === oldMove){
                     newMove = Moves[Math.floor(Math.random()*Moves.length)]
                 }
-                child1[mPoint] = newMove
+                child1.moves[mPoint] = newMove
                 
-                oldMove = child2[mPoint]
+                oldMove = child2.moves[mPoint]
                 newMove = Moves[Math.floor(Math.random()*Moves.length)]
                 while(newMove === oldMove){
                     newMove = Moves[Math.floor(Math.random()*Moves.length)]
                 }
-                child2[mPoint] = newMove
+                child2.moves[mPoint] = newMove
             }
+
             newPopulation.push(child1)
             newPopulation.push(child2)
         }
@@ -88,8 +91,10 @@ export class GeneticAlgorithm{
             let participents = []
             let winner = NaN
             for(let j=0; j<tourSize; j++){
-                participents.push(population[Math.floor(Math.random()*population.length)])
-                if(j == 0 || winner.fitness < participents[j].fitness){
+                participents.push(Math.floor(Math.random()*population.length))
+                population[participents[j]].evaluate()
+                
+                if(j == 0 || population[winner].fitness > population[participents[j]].fitness){
                     winner = participents[j]
                 }
             }

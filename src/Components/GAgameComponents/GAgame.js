@@ -1,6 +1,6 @@
 import "../../App.css"
 import React, { useRef, useEffect } from "react"
-import Data from "./Data"
+import {Data} from "./Data"
 
 import { states } from "../../States"
 import { Game } from "./game"
@@ -16,14 +16,20 @@ const GAgame = (props) =>{
     const gameRef = useRef()
     const GAref = useRef()
 
+    const startTimeRef = useRef(0)
+    const timerRef = useRef(1000/60)
+
+
     useEffect(() =>{
         function initialise(){
             contextRef.current = canvasRef.current.getContext("2d")
-            gameRef.current = new Game(canvasData.w, canvasData.h, 100, 5, 5, 100)
+            gameRef.current = new Game(canvasData.w, canvasData.h, null, 500, 5, 20, 100)
             gameRef.current.initialise()
         }
         const run = () =>{
-           
+        if(Date.now() - startTimeRef.current > timerRef.current){
+
+            startTimeRef.current = Date.now()
             switch(stateRef.current){
                 case states.paused:
                     break
@@ -40,7 +46,7 @@ const GAgame = (props) =>{
                     console.log("states are broken")
                     break
             }
-
+        }
 
             animationRef.current = requestAnimationFrame(run)
         }

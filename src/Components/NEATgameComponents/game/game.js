@@ -63,19 +63,30 @@ export class Game{
     }
 
     addCube(){
-        this.cubes.push(new Cube(20, 20, Math.abs(Math.random()*(this.width-10)) + 5, 50, this.cubeNum, this))
+        this.cubes.push(new Cube(20, 20, Math.abs(Math.random()*(this.width-10)) + 5, 50, this.cubeNum, Math.random()))
         this.timeSinceLastSpawn = Date.now()
         this.idNum++
     }
 
     removeCube(){
-        this.cubes.splice(0,1)
-        for(let i=0; i<this.population.size; i++){
-            if(this.population.population[i].collidingWith === null){
-                this.population.population[i].kill();
+        let cubeRemoved = this.cubes.splice(0,1)[0]
+        
+        if(!cubeRemoved.deadly){
+            for(let i=0; i<this.population.size; i++){
+                if(this.population.population[i].collidingWith === null){
+                    this.population.population[i].kill();
+                }
+                this.population.population[i].collidingWith = null
             }
-            this.population.population[i].collidingWith = null
+        }else{
+            for(let i=0; i<this.population.size; i++){
+                if(!this.population.population[i].dead){
+                    this.population.population[i].score++
+                }
+                
+            }
         }
+        
     }
     
     getBestScore(){
