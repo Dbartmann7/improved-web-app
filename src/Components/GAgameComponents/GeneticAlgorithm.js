@@ -9,19 +9,34 @@ export class GeneticAlgorithm{
     }
 
     evolve(population, numMoves, tourSize){
- 
         let parents = []
         let newPopulation = []
-        if(this.sAlgorithm = "tour"){
-            parents = this.TourSelection(population, tourSize)
-        }
+
+        switch(this.sAlgorithm){
+            case "tour":
+                parents = this.TourSelection(population, tourSize)
+                break
+            case "roul":
+                parents = this.RoulSelection(population)
+                break
+            case "rank":
+                parents = this.RankSelection(population)
+                break
+            default:
+                alert("selection algorithm not recognised")
+                break
+
+        } 
+        // if(this.sAlgorithm = "tour"){
+        //     parents = this.TourSelection(population, tourSize)
+        // }
 
         for(let i=0; i<this.popSize/2; i++){
-            let par1index = parents[Math.floor(Math.random() * parents.length)]
-            let par2index = parents[Math.floor(Math.random() * parents.length)]
-            while(par2index === par1index){
-                par2index = parents[Math.floor(Math.random() * parents.length)]
-            }
+            let par1index = parents.splice(Math.floor(Math.random() * parents.length), 1)
+            let par2index = parents.splice(Math.floor(Math.random() * parents.length), 1)
+            // while(par2index === par1index){
+            //     par2index = parents[Math.floor(Math.random() * parents.length)]
+            // }
             let parent1 = population[par1index].clone()
             let parent2 = population[par2index].clone()
 
@@ -87,7 +102,7 @@ export class GeneticAlgorithm{
         // }
         // return parents
         let parents = []
-        for(let i=0; i<20; i++){
+        for(let i=0; i<population.length; i++){
             let participents = []
             let winner = NaN
             for(let j=0; j<tourSize; j++){
@@ -100,6 +115,78 @@ export class GeneticAlgorithm{
             }
             parents.push(winner)
         }
+        return parents
+    }
+
+    RoulSelection(population){
+        let parents = []
+        let probabilities = []
+        function compare(a, b){
+            if(a.fitness<b.fitness){
+                return 1 
+            }else{
+                return -1
+            }
+        }
+        let sum = 0
+        for(let i=0; i<population.length; i++){
+            population[i].evaluate()
+            sum += i+1;
+        }
+
+        for(let i=1; i<=population.length; i++){
+            probabilities.push(i/sum)
+        }
+        
+        population = population.sort(compare)
+
+        for(let i=0; i<population.length; i++){
+            let x = Math.random()
+            for(let j=0; j<population.length; j++){
+                if(x<=probabilities[j]){
+                    parents.push(j)
+                    break
+                }else{
+                    x -= probabilities[j]
+                }
+            }
+
+        }
+        console.log(parents)
+        return parents
+    }
+
+    RankSelection(population){
+        let parents = []
+        let ranks = []
+        function compare(a, b){
+            if(a.fitness<b.fitness){
+                return 1 
+            }else{
+                return -1
+            }
+        }
+        let sum = 0
+        for(let i=0; i<population.length; i++){
+            population[i].evaluate()
+            sum += i+1
+        }
+
+        population = population.sort(compare)
+
+        for(let i=0; i<population.length; i++){
+            let x = Math.floor(Math.random() * sum + 1)
+            for(let j=0; j<population.length; j++){
+                if(x<=j+1){
+                    parents.push(j)
+                    break
+                }else{
+                    x -= j+1
+                }
+            }
+        }
+
+        console.log(parents)
         return parents
     }
 }

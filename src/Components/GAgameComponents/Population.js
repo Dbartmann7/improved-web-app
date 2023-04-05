@@ -12,7 +12,6 @@ export class Population{
         this.numMoves = numMoves
         this.movesInc = movesInc
         this.maxMoves = maxMoves
-
         this.blockProbabilities = [1]
         
         this.GA = new GeneticAlgorithm(popSize, sAlgor, cRate, mRate)
@@ -26,9 +25,8 @@ export class Population{
     }
 
     update(){
-    
         for(let i=0; i<this.population.length; i++){
-            if(this.population[i].alive){
+            if(this.population[i].alive && !this.population[i].won){
                 this.population[i].update(this.iteration)
                 for(let j=0; j<spikes.length; j++){
                     if(isColliding(this.population[i], spikes[j])){
@@ -68,7 +66,8 @@ export class Population{
             
             
         }
-        this.numMoves += movesInc
+        this.numMoves = this.population[0].moves.length
+        console.log(this.numMoves)
         
 
         this.blockProbabilities.splice(0)

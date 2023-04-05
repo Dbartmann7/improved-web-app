@@ -8,7 +8,10 @@ import { Game } from "./game/game"
 
 const NEATgame = (props) =>{
     let {canvasData} = Data
-    let {stateRef, setGameState, curBest, setCurBest, overallBest, setOverallBest, updatePopSize, neatPopSize, neatPopRef} = props
+    let {stateRef, setGameState, 
+        curBest, setCurBest, overallBest, setOverallBest, 
+        updatePopSize, popSize, popRef,
+        updateCRate, cRate, cRateRef} = props
     let animationRef = useRef()
     let canvasRef = useRef()
     let contextRef = useRef()
@@ -30,7 +33,7 @@ const NEATgame = (props) =>{
             }
         }
         function initialise(){
-            gameRef.current = new Game(canvasData.w, canvasData.height, neatPopRef.current)
+            gameRef.current = new Game(canvasData.w, canvasData.height, popRef.current)
             gameRef.current.initialise()
             contextRef.current = canvasRef.current.getContext("2d")
             setCurBest(0)
@@ -71,27 +74,28 @@ const NEATgame = (props) =>{
     },[])
 
     return(
-        <>
-            <div className="CanvasContainer">
+        <div className="gameContainer">
+            <div className="NeatCanvasContainer">
                 <canvas id="GameCanvas"
                     width={canvasData.w}
                     height= {canvasData.h}
                     ref={canvasRef}
                 />
             </div>
-            <div className="statistics">
-                <div className="statistic">
-                    Current Best: {curBest}<br/>
-                    Overall Best: {overallBest} 
-                </div>
-            </div>
             <NEATdashboard
+                stateRef={stateRef}
                 setGameState={setGameState}
-                updatePopSize={updatePopSize}
+                
+                curBest={curBest}
+                overallBest={overallBest}
 
-                neatPopSize={neatPopSize}
+                updatePopSize={updatePopSize}
+                popSize={popSize}
+
+                updateCRate={updateCRate}
+                cRate={cRate}
             />
-        </>
+        </div>
     )
 }
 

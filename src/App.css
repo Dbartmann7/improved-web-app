@@ -2,10 +2,15 @@
   display:flex;
   justify-content: center;
 }
-.CanvasContainer{
+.NeatCanvasContainer{
+  display: flex;
+  justify-content: left;
+}
+.GACanvasContainer{
   display: flex;
   justify-content: center;
 }
+
 #GameCanvas{
   border: .5em solid black;
   background-color: white;

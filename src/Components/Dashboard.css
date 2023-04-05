@@ -1,0 +1,57 @@
+.DashboardContainer{
+    padding:5em;
+}
+
+.inputGrid{
+    display: grid;
+}
+.inputRow{
+    display: flex;
+    gap:5em;
+    align-items: center;
+    margin-bottom: 1em;
+}
+
+.inputGridItem{
+    background-color: white;
+    border: solid black .4em;
+    border-radius: 10%;
+    display: flex;
+    width: 15em;
+    height: 10em;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.inputTitle{
+    margin: 0;
+    padding: 1em;
+    color: black;
+
+}
+input:disabled{
+    opacity: 70%;
+    background-color: rgb(197, 197, 197);
+}
+
+.startBtn{
+    width: inherit;
+    height:inherit;
+    border-radius: inherit;
+    border: 0;
+}
+.startBtn:hover{
+    background-color: rgb(211, 211, 211);
+}
+
+
+.inputBox{
+    border-radius: 40%;
+    border: solid black .2em;
+    height: 4em;
+    font-weight: bold;
+    font-size: large;
+    text-align: center;
+    width:4em;
+    margin-bottom: 1em;
+}
