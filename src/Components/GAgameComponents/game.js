@@ -4,7 +4,7 @@ import { Goal } from "./Entities/Goal.js"
 import { GeneticAlgorithm } from "./GeneticAlgorithm.js"
 import { isColliding} from "./Collision.js"
 import { Population } from "./Population.js"
-import { spikes, grounds } from "./Data.js"
+import { spikes, grounds, goalData } from "./Data.js"
 import { Ground } from "./Entities/gound.js"
 
 export class Game{
@@ -69,6 +69,7 @@ export class Game{
     }
 
     draw(context){
+        console.log(this.gloa)
         this.goal.draw(context)
         // draw spikes
         for(var j=0; j<this.spikes.length; j++){
@@ -109,13 +110,13 @@ export class Game{
         // //this.spikes.push(new Spike(25, 25, 500, this.height-25)) 
         // this.spikes.push(new Spike(25, 25, 200, this.height-25)) 
         for(let i=0; i<spikes.length; i++){
-            this.spikes.push(new Spike(spikes[i].w,spikes[i].h, spikes[i].x, spikes[i].y))
+            this.spikes.push(new Spike(spikes[i].w,spikes[i].h, spikes[i].x, spikes[i].y, spikes[i].upsideDown))
         }
         for(let i=0; i<grounds.length; i++){
             this.grounds.push(new Ground(grounds[i].w,grounds[i].h,grounds[i].x,grounds[i].y ))
         }
        
-        this.goal = new Goal(50, this.height, this.width-50, 0)
+        this.goal = new Goal(goalData.w, goalData.h, goalData.x, goalData.y)
         
         //this.increaseMoves()
     }

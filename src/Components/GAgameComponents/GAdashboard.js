@@ -38,43 +38,58 @@ const GAdashboard = (props) =>{
     const sAlgorSelectedRef = useRef(selAlgorOptions[0])
     const speedMultSelectedRef = useRef(speedMultOptions[0])
 
-    useEffect(() =>{
-        if(stateRef.current === states.starting || stateRef.current === states.running){
-            popInputRef.current.disabled = true
-            cRateInputRef.current.disabled = true
-            mRateInputRef.current.disabled = true
-            for(let i=0; i<selAlgorOptions.length; i++){
-                selAlgorOptions[i].isdisabled = true
-            }
-            for(let i=0; i<speedMultOptions.length; i++){
-                speedMultOptions[i].isdisabled = true
-            }
-            moveIncInputRef.current.disabled = true
-            moveIntInputRef.current.disabled = true
-            maxMovesInputRef.current.disabled = true
+    // useEffect(() =>{
+    //     if(stateRef.current === states.starting || stateRef.current === states.running){
+    //         popInputRef.current.disabled = true
+    //         cRateInputRef.current.disabled = true
+    //         mRateInputRef.current.disabled = true
+    //         for(let i=0; i<selAlgorOptions.length; i++){
+    //             selAlgorOptions[i].isdisabled = true
+    //         }
+    //         for(let i=0; i<speedMultOptions.length; i++){
+    //             speedMultOptions[i].isdisabled = true
+    //         }
+    //         moveIncInputRef.current.disabled = true
+    //         moveIntInputRef.current.disabled = true
+    //         maxMovesInputRef.current.disabled = true
+    //     }else{
+    //         popInputRef.current.disabled = false
+    //         cRateInputRef.current.disabled = false
+    //         mRateInputRef.current.disabled = false
+    //         for(let i=0; i<selAlgorOptions.length; i++){
+    //             selAlgorOptions[i].isdisabled = false
+    //         }
+    //         for(let i=0; i<speedMultOptions.length; i++){
+    //             speedMultOptions[i].isdisabled = false
+    //         }
+    //         moveIncInputRef.current.disabled = false
+    //         moveIntInputRef.current.disabled = false
+    //         maxMovesInputRef.current.disabled = false
+    //         speedMultInputRef.current.disabled = false
+    //     }
+    // }, [stateRef.current])
+    function checkValid(){
+        if(!checkPopSize()){
+            return
         }else{
-            popInputRef.current.disabled = false
-            cRateInputRef.current.disabled = false
-            mRateInputRef.current.disabled = false
-            for(let i=0; i<selAlgorOptions.length; i++){
-                selAlgorOptions[i].isdisabled = false
-            }
-            for(let i=0; i<speedMultOptions.length; i++){
-                speedMultOptions[i].isdisabled = false
-            }
-            moveIncInputRef.current.disabled = false
-            moveIntInputRef.current.disabled = false
-            maxMovesInputRef.current.disabled = false
-            speedMultInputRef.current.disabled = false
+            setGameState(states.starting)
         }
-    }, [stateRef.current])
-
+    }
+    function checkPopSize(){
+        let validChars = [0,1,2,3,4,5,6,7,8,9]
+        if(popSize <2){
+            alert("please enter a valid popSize")
+            return false
+        }else{
+            return true
+        }
+    }
     return(
         <div className="DashboardContainer">
             <div className="inputGrid">
                 <div className="inputRow">
                     <div className="inputGridItem">
-                        <button className="startBtn" onClick={ () =>{setGameState(states.starting)}}>
+                        <button className="startBtn" onClick={ () =>{checkValid()}}>
                             <h1>Start Game</h1>
                         </button>
                     </div>
@@ -82,7 +97,8 @@ const GAdashboard = (props) =>{
                         <h2 className="inputTitle">PopSize</h2>
                         <input
                             className="inputBox"
-                            type="text"
+                            type="number"
+                            min={2}
                             value={popSize}
                             onChange={e =>{updatePopSize(e.target.value)}}
                             ref={popInputRef}

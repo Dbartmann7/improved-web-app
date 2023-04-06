@@ -14,10 +14,10 @@ function App() {
   const [gaPopSize, setGAPopSize] = useState(200)
   const gaPopSizeRef = useRef(gaPopSize)
 
-  const [gaCRate, setGACRate] = useState(0.8)
+  const [gaCRate, setGACRate] = useState(0.9)
   const gaCRateRef = useRef(gaCRate)
 
-  const [gaMRate, setGAMRate] = useState(0.2)
+  const [gaMRate, setGAMRate] = useState(0.1)
   const gaMRateRef = useRef(gaMRate)
 
   const [gaSelAlgor, setGASelAlgor] = useState("tour")

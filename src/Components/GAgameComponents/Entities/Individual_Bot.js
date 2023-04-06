@@ -1,4 +1,4 @@
-import { Data, spikes } from "../Data.js"
+import { Data, grounds, spikes , goalData} from "../Data.js"
 import {Entity} from "./Entity.js"
 import { isColliding } from "../Collision.js"
 
@@ -15,7 +15,6 @@ export class Individual_Bot extends Entity{
         this.initx = Data.playerData.x
         this.inity = Data.playerData.y
         this.canvasData = Data.canvasData
-        this.goalData = Data.goalData
     }
 
     update(iteration){
@@ -31,18 +30,27 @@ export class Individual_Bot extends Entity{
                 this.x += this.speed
             }   
         }
+
+        
         if(!this.onGround){
             this.y -= this.vy
             this.vy -= 2
         }else{
-            this.y = 450
             this.vy = 0
         }
         if(this.x < 0) this.x=0
         if(this.x > this.canvasData.w-this.w) this.x=this.canvasData.w-this.w
         if(this.x<0) this.x = 0
-        this.won = isColliding(this, this.goalData)
-        this.onGround = (this.y >= this.canvasData.h-this.h)
+        this.won = isColliding(this, goalData)
+        this.onGround = false
+        for(let i=0; i<grounds.length; i++){
+         
+            if(isColliding(this, grounds[i])){
+                this.y=grounds[i].y-this.h
+                this.onGround = true
+            }
+        }
+        //this.onGround = (this.y >= this.canvasData.h-this.h)
     }
 
     draw(context){
@@ -65,9 +73,9 @@ export class Individual_Bot extends Entity{
     }
 
     evaluate(){
-        let a = Math.pow(this.goalData.x+50 - this.x, 2)
-        let b = Math.pow(this.goalData.y - this.y, 2)
-        this.fitness = Math.sqrt(a + b)
+        let a = Math.pow(goalData.x+50 - this.x, 2)
+        let b = Math.pow(goalData.y - this.y, 2)
+        this.fitness = a
         if(!this.alive){
             this.fitness += 100
         }

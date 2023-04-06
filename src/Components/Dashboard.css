@@ -55,3 +55,7 @@ input:disabled{
     width:4em;
     margin-bottom: 1em;
 }
+
+input::-webkit-inner-spin-button {
+    display: none;
+  }

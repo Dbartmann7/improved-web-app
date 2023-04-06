@@ -9,12 +9,12 @@ const NEATdashboard = (props) =>{
     
     const popInputRef = useRef() 
     const cRateInputRef= useRef()
-    useEffect(() =>{
-        if(stateRef.current === states.starting || stateRef.current === states.running){
-            popInputRef.current.disabled = true
-            cRateInputRef.current.disabled = true
-        }
-    }, [stateRef.current])
+    // useEffect(() =>{
+    //     if(stateRef.current === states.starting || stateRef.current === states.running){
+    //         popInputRef.current.disabled = true
+    //         cRateInputRef.current.disabled = true
+    //     }
+    // }, [stateRef.current])
     return(
         <div className="DashboardContainer">
             <div className="inputGrid">
