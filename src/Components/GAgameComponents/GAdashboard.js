@@ -2,16 +2,20 @@ import { useEffect, useRef } from "react"
 import Select from "react-select"
 import { states } from "../../States"
 import "../Dashboard.css"
+import InfoPopup from "./Info"
 const GAdashboard = (props) =>{
-    const {setGameState, stateRef,
+    const {infoShown, setInfoShown, setGameState, stateRef,
             popSize, updatePopSize,
             cRate, updateCRate,
             mRate, updateMRate,
             selAlgor, updateSelAlgor,
+            crossoverType, updateCrossoverType,
+            tourSize, updateTourSize,
             moveInc, updateMoveInc,
             moveInt, updateMoveInt,
             maxMoves, updateMaxMoves,
-            speedMult, updateSpeedMult} = props
+            speedMult, updateSpeedMult,
+            winGen, winMove, curGen, curMoves} = props
     
     const popInputRef = useRef()
     const cRateInputRef = useRef()
@@ -29,14 +33,31 @@ const GAdashboard = (props) =>{
         {value: "rank", label :"Rank", isdisabled: false}
     ]
 
+    const crossoverTypeOptions = [
+        {value: "single", label: "Single-Point", isdisabled: false},
+        {value: "double", label: "Double-Point", isdisabled: false},
+    ]
+
     const speedMultOptions = [
         {value: "1", label: "1x", isdisabled: false},
         {value: "2", label: "2x", isdisabled: false},
         {value: "3", label: "3x", isdisabled: false},
         {value: "6", label: "6x", isdisabled: false},
     ]
+
+    const validation = {
+        popSize: ["0","1","2","3","4","5","6","7","8","9"],
+        crossoverRate: ["0","1","2","3","4","5","6","7","8","9", "."],
+        mutationRate: ["0","1","2","3","4","5","6","7","8","9", "."],
+        tournamentSize: ["0","1","2","3","4","5","6","7","8","9"],
+        incrementSize: ["0","1","2","3","4","5","6","7","8","9"],
+        intervalSize:["0","1","2","3","4","5","6","7","8","9"],
+        maxMovesSize: ["0","1","2","3","4","5","6","7","8","9"]
+
+    }
     const sAlgorSelectedRef = useRef(selAlgorOptions[0])
     const speedMultSelectedRef = useRef(speedMultOptions[0])
+    const crossoverTypeSelectedRef = useRef(crossoverTypeOptions[0])
 
     // useEffect(() =>{
     //     if(stateRef.current === states.starting || stateRef.current === states.running){
@@ -68,30 +89,76 @@ const GAdashboard = (props) =>{
     //         speedMultInputRef.current.disabled = false
     //     }
     // }, [stateRef.current])
-    function checkValid(){
-        if(!checkPopSize()){
+    function startGame(){
+        if(!checkValid(popSize, validation.popSize, 2, 10000) || popSize % 2 === 1){
+            alert("Please enter a valid Population Size")
             return
-        }else{
-            setGameState(states.starting)
         }
+        if(!checkValid(cRate, validation.crossoverRate, 0, 1)){
+            alert("Please enter a valid Crossover Rate")
+            return
+        }
+        if(!checkValid(mRate, validation.mutationRate, 0, 1)){
+            alert("Please enter a valid Mutation Rate")
+            return
+        }
+        if(!checkValid(tourSize, validation.tournamentSize, 1, popSize)){
+            alert("Please enter a valid Tournament Size")
+            return
+        }
+        if(!checkValid(moveInc, validation.incrementSize, 1, 100000)){
+            alert("Please enter a valid Move Increment")
+            return
+        }
+        if(!checkValid(moveInt, validation.intervalSize, 1, 100000)){
+            alert("Please enter a valid Move Interval")
+            return
+        }
+        if(!checkValid(maxMoves, validation.maxMovesSize, 1, 100000)){
+            alert("Please enter a valid Maximum amount of moves")
+            return
+        }
+        
+        setGameState(states.starting)
     }
-    function checkPopSize(){
-        let validChars = [0,1,2,3,4,5,6,7,8,9]
-        if(popSize <2){
-            alert("please enter a valid popSize")
+
+    function checkValid(target, validChars, min, max){
+        if(target<min || target >max){
             return false
         }else{
-            return true
+            target.toString().split("").forEach(char=> {
+                console.log(validChars.includes(char))
+                if(!validChars.includes(char)){
+                    return false
+                }
+            });
         }
+        return true
     }
+
     return(
+        <>
         <div className="DashboardContainer">
             <div className="inputGrid">
                 <div className="inputRow">
                     <div className="inputGridItem">
-                        <button className="startBtn" onClick={ () =>{checkValid()}}>
-                            <h1>Start Game</h1>
+                        <button className="startBtn" onClick={ () =>{startGame()}}>
+                            <h1>Start New Game</h1>
                         </button>
+                        
+                    </div>
+                    <div className="inputGridItem">
+                        <button className="startBtn" onClick={ () =>{setInfoShown(true)}}>
+                            <h1>Tutorial</h1>
+                        </button>
+                    </div>
+                    <div className="inputGridItem">
+                        <h3 style={{marginLeft:1+"em"}}>
+                            Current Gen: {curGen}<br/>
+                            Current Moves: {curMoves}<br/>
+                            Won in {winGen} Generations<br/>
+                            Won in {winMove} Moves
+                        </h3>
                     </div>
                     <div className="inputGridItem">
                         <h2 className="inputTitle">PopSize</h2>
@@ -105,7 +172,7 @@ const GAdashboard = (props) =>{
                         />
                     </div>
                     <div className="inputGridItem">
-                        <h2 className="inputTitle">Crossover Rate</h2>
+                        <h3 className="inputTitle">Crossover Rate</h3>
                         <input
                             className="inputBox"
                             type="text"
@@ -115,7 +182,7 @@ const GAdashboard = (props) =>{
                         />
                     </div>
                     <div className="inputGridItem">
-                        <h2 className="inputTitle">Mutation Rate</h2>
+                        <h3 className="inputTitle">Mutation Rate</h3>
                         <input
                             className="inputBox"
                             type="text"
@@ -125,7 +192,7 @@ const GAdashboard = (props) =>{
                         />
                     </div>
                     <div className="inputGridItem">
-                        <h2 className="inputTitle" style={{fontSize: 1.3+"em"}}>Selection Algorithm</h2>
+                        <h3 className="inputTitle" style={{fontSize: 1.1+"em"}}>Selection Algorithm</h3>
                         <Select
                             //className="inputBox"
                             defaultValue={sAlgorSelectedRef.current}
@@ -134,6 +201,30 @@ const GAdashboard = (props) =>{
                             options={selAlgorOptions}
                             isOptionDisabled={(option) => option.isdisabled}
                             ref={selAlgorInputRef}
+                        />
+                    </div>
+                    <div className="inputGridItem">
+                        <h3 className="inputTitle" style={{fontSize: 1.1+"em"}}>Crossover Type</h3>
+                        <Select
+                            //className="inputBox"
+                            defaultValue={crossoverTypeSelectedRef.current}
+                            //style={{width: 10+"em"}}
+                            onChange={e =>{updateCrossoverType(e.value)}}
+                            options={crossoverTypeOptions}
+                            isOptionDisabled={(option) => option.isdisabled}
+                            ref={selAlgorInputRef}
+                        />
+                    </div>
+
+                </div>
+                <div className="inputRow">
+                    <div className="inputGridItem">
+                        <h3 className="inputTitle">Tournament Size</h3>
+                        <input
+                            className="inputBox"
+                            type="text"
+                            value={tourSize}
+                            onChange={e =>{updateTourSize(e.target.value)}}
                         />
                     </div>
                     <div className="inputGridItem">
@@ -156,8 +247,6 @@ const GAdashboard = (props) =>{
                             ref={moveIntInputRef}
                         />
                     </div>
-                </div>
-                <div className="inputRow">
                     <div className="inputGridItem">
                         <h2 className="inputTitle">Max Moves</h2>
                         <input
@@ -183,6 +272,7 @@ const GAdashboard = (props) =>{
                 </div>
             </div>
         </div>
+        </>
     )
 }
 

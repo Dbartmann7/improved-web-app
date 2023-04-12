@@ -1,20 +1,22 @@
 import Moves from "./Moves.js"
 
 export class GeneticAlgorithm{
-    constructor(popSize, sAlgorithm, cRate, mRate){
+    constructor(popSize, sAlgorithm, cRate, mRate, tourSize, crossoverType){
         this.popSize = popSize
         this.sAlgorithm = sAlgorithm
         this.cRate = cRate
         this.mRate = mRate
+        this.tourSize = tourSize
+        this.crossoverType = crossoverType
     }
 
-    evolve(population, numMoves, tourSize){
+    evolve(population, numMoves){
         let parents = []
         let newPopulation = []
 
         switch(this.sAlgorithm){
             case "tour":
-                parents = this.TourSelection(population, tourSize)
+                parents = this.TourSelection(population)
                 break
             case "roul":
                 parents = this.RoulSelection(population)
@@ -44,9 +46,16 @@ export class GeneticAlgorithm{
             let child2 = parent2.clone()
 
             if(Math.random() < this.cRate){
-                let cPoint =  Math.floor(Math.random()*numMoves)
-                child1.moves = parent1.moves.slice(0, cPoint).concat(parent2.moves.slice(cPoint))
-                child2.moves = parent2.moves.slice(0, cPoint).concat(parent1.moves.slice(cPoint))
+                switch(this.crossoverType){
+                    case "single":
+                        this.singlePointCrossover(parent1, parent2, child1, child2, numMoves)
+                        break
+                    case "double":
+                        this.doublePointCrossover(parent1, parent2, child1, child2, numMoves)
+                        break
+                    default:
+                        console.log("crossover type not recognised")
+                }
             }
             if(Math.random()<this.mRate){
                 // let block = null
@@ -86,7 +95,7 @@ export class GeneticAlgorithm{
         return newPopulation
     }
 
-    TourSelection(population, tourSize){
+    TourSelection(population){
         // let parents = []
         // for(let i=0; i<this.game.popSize; i++){
         //     let participents = []
@@ -105,7 +114,7 @@ export class GeneticAlgorithm{
         for(let i=0; i<population.length; i++){
             let participents = []
             let winner = NaN
-            for(let j=0; j<tourSize; j++){
+            for(let j=0; j<this.tourSize; j++){
                 participents.push(Math.floor(Math.random()*population.length))
                 population[participents[j]].evaluate()
                 
@@ -188,5 +197,20 @@ export class GeneticAlgorithm{
 
         console.log(parents)
         return parents
+    }
+
+    singlePointCrossover(parent1, parent2, child1, child2, numMoves){
+        let cPoint =  Math.floor(Math.random()*numMoves)
+        child1.moves = parent1.moves.slice(0, cPoint).concat(parent2.moves.slice(cPoint))
+        child2.moves = parent2.moves.slice(0, cPoint).concat(parent1.moves.slice(cPoint))
+        console.log("single")
+    }
+
+    doublePointCrossover(parent1, parent2, child1, child2, numMoves){
+        let cPoint1 =  Math.floor(Math.random()*numMoves)
+        let cPoint2 =  Math.floor(Math.random()* (numMoves - cPoint1))
+        child1.moves = parent1.moves.slice(0, cPoint1).concat(parent2.moves.slice(cPoint1, cPoint2).concat(parent1.moves.slice(cPoint2)))
+        child2.moves = parent2.moves.slice(0, cPoint1).concat(parent1.moves.slice(cPoint1, cPoint2).concat(parent2.moves.slice(cPoint2)))
+        console.log("double")
     }
 }

@@ -4,7 +4,7 @@ import Moves from "./Moves.js";
 import { GeneticAlgorithm } from "./GeneticAlgorithm.js";
 import { isColliding } from "./Collision.js";
 export class Population{
-    constructor(popSize, numMoves, movesInc, maxMoves, sAlgor, cRate, mRate){
+    constructor(popSize, numMoves, movesInc, maxMoves,GAInfo){
        // this.GA = new GeneticAlgorithm(sAlgor, cRate, mRate)
         this.population = []
         this.popSize = popSize
@@ -13,8 +13,9 @@ export class Population{
         this.movesInc = movesInc
         this.maxMoves = maxMoves
         this.blockProbabilities = [1]
+        this.hasWon = false
         
-        this.GA = new GeneticAlgorithm(popSize, sAlgor, cRate, mRate)
+        this.GA = new GeneticAlgorithm(popSize, GAInfo.selectAlgor, GAInfo.crossoverRate, GAInfo.mutationRate, GAInfo.tourSize, GAInfo.crossoverType)
 
         const {playerData} = Data
         for(let i=0; i<popSize; i++){
@@ -33,6 +34,9 @@ export class Population{
                         this.population[i].kill()
                     }
                 }
+                if(this.population[i].won && !this.hasWon){
+                    this.hasWon = true
+                }
             }
         }
     }
@@ -45,7 +49,7 @@ export class Population{
 
     evolve(){
         
-        let newPopulation = this.GA.evolve(this.population, this.numMoves, 2)
+        let newPopulation = this.GA.evolve(this.population, this.numMoves)
         this.population.splice(0, this.population.length)
         this.population = newPopulation.slice(0)
 

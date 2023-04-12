@@ -74,7 +74,7 @@ export class Individual_Bot extends Entity{
 
     evaluate(){
         let a = Math.pow(goalData.x+50 - this.x, 2)
-        let b = Math.pow(goalData.y - this.y, 2)
+        let b = Math.pow(goalData.y-100 - this.y, 2)
         this.fitness = a
         if(!this.alive){
             this.fitness += 100

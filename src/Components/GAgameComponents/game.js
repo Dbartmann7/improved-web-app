@@ -1,8 +1,6 @@
-import { Individual_Bot } from "./Entities/Individual_Bot.js"
+
 import { Spike } from "./Entities/Spike.js"
 import { Goal } from "./Entities/Goal.js"
-import { GeneticAlgorithm } from "./GeneticAlgorithm.js"
-import { isColliding} from "./Collision.js"
 import { Population } from "./Population.js"
 import { spikes, grounds, goalData } from "./Data.js"
 import { Ground } from "./Entities/gound.js"
@@ -21,7 +19,7 @@ export class Game{
         this.movesList = ["RIGHT", "LEFT", "JUMP"]
         this.movesInc = movesInc
         this.numMoves = movesInc
-        this.population = new Population(popSize, this.numMoves, movesInc,movesCap, GAInfo.selectAlgor, GAInfo.crossoverRate, GAInfo.mutationRate)
+        this.population = new Population(popSize, this.numMoves, movesInc,movesCap, GAInfo)
         this.movesInterval = movesInterval
         this.movesCap = movesCap
         this.blockProbabilities = []
@@ -33,6 +31,8 @@ export class Game{
         this.moveImpact = 6
         this.impactCount = 0
         this.gen = 0
+        this.winGen = "N/A"
+        this.winMoves = "N/A"
 
         // main game loop
         this.run = (context) =>{
@@ -65,11 +65,13 @@ export class Game{
 
     update(){
         this.population.update()   
-
+        if(this.population.hasWon && this.winGen === "N/A"){
+            this.winGen = this.gen
+            this.winMoves = this.population.iteration
+        }
     }
 
     draw(context){
-        console.log(this.gloa)
         this.goal.draw(context)
         // draw spikes
         for(var j=0; j<this.spikes.length; j++){
@@ -87,9 +89,11 @@ export class Game{
     endGame(){
         // evolve population, reset game and start again
 
-        if(this.gen % this.movesInterval ===0 && this.population.numMoves < this.movesCap){
+        if((this.gen+1) % this.movesInterval ===0 && this.population.numMoves < this.movesCap){
             this.population.increaseMoves(this.movesInc)
-            this.numMoves += this.movesInc
+            this.numMoves += Number(this.movesInc)
+            console.log(this.movesInc)
+        
         }
         
         this.population.evolve()

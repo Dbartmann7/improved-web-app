@@ -1,0 +1,86 @@
+.info-container{
+    position: absolute;
+    align-self: center;
+    top:25%;
+    width:100%;
+    height: 75%;
+    background-color: grey;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+
+.info-inner{
+    position: relative;
+    padding: 32px;
+    width:50%;
+    height: 70%;
+    border: 10px solid black;
+    background-color: white;
+    overflow: scroll;
+}
+
+.infoButtonGrid{
+    display: grid;
+    grid-template-columns: 10em 10em;
+    justify-content: space-around;
+    align-items: center;
+    grid-gap: 10em;
+}
+
+.infoButton{
+    width:15em;
+    height:12.5em;
+}
+
+.closeBtn, button{
+    background-color: white;
+    border: solid black .4em;
+    border-radius: 10%;
+    display: flex;
+    width: 10em;
+    height: 7.5em;
+    max-width: 15em;
+    max-height: 10em;
+    flex-direction: column;
+    justify-content: center;
+    align-self: center;
+    align-items: center;
+    font-weight: bold;
+}
+
+button:hover{
+    
+    background-color: rgb(211, 211, 211);
+    
+}
+.header{
+    display: flex;
+
+}
+.header > h1{
+    font-size: 3em;
+    left:45%;
+}
+.tutorialInfo{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.tutorialMainWrapper{
+    width: 80em;
+    height: 50em;
+    margin-top: 2em;
+}
+.tutorialMainWrapper > p{
+    font-weight: bold;
+    font-size: larger;
+}
+
+.backBtn{
+    position:absolute;
+    left:10%;
+    top:10%
+}

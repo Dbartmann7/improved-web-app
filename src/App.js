@@ -5,8 +5,12 @@ import './App.css';
 import NavBar from './Components/NavBar';
 import { useState, useRef, useEffect } from 'react';
 import {states} from './States.js';
+import InfoPopup from './Components/GAgameComponents/Info';
 
 function App() {
+
+  const [infoShown, setInfoShown] = useState(false)
+
   const [gameState, setGameState] = useState(states.paused)
   const stateRef = useRef(gameState)
 
@@ -23,6 +27,12 @@ function App() {
   const [gaSelAlgor, setGASelAlgor] = useState("tour")
   const gaSelAlgorRef = useRef(gaSelAlgor)
 
+  const [crossoverType, setCrossoverType] = useState("single")
+  const crossoverTypeRef = useRef(crossoverType)
+
+  const [gaTourSize, setGATourSize] = useState(2)
+  const gaTourSizeRef = useRef(gaTourSize)
+
   const [moveInc, setMoveInc] = useState(5)
   const moveIncRef = useRef(moveInc)
 
@@ -35,6 +45,10 @@ function App() {
   const [gaSpeedMult, setGASpeedMult] = useState(1)
   const gaSpeedMultRef = useRef(gaSpeedMult)
 
+  const [winGens, setWinGens] = useState("N/A")
+  const [winMoves, setWinMoves] = useState("N/A")
+  const [curGen, setCurGen] = useState(0)
+  const [curMoves, setCurMoves] = useState(0)
   //Neat data
   const [curBest, setCurBest] = useState()
   const [overallBest, setOverallBest] = useState()
@@ -44,6 +58,10 @@ function App() {
 
   const [neatCRate, setNeatCRate] = useState(0.9)
   const neatCRateRef = useRef(neatCRate)
+
+  useEffect(() =>{
+    console.log(winGens)
+  }, [winGens])
 
   // *********************************** USE EFFECTS AND FUNCTIONS ***********************************\\
   useEffect(() =>{
@@ -92,6 +110,23 @@ function App() {
     setGASelAlgor(selAlgor)
   }
 
+  useEffect(() =>{
+    crossoverTypeRef.current = crossoverType
+    console.log("crossover type: " + crossoverTypeRef.current)
+  }, [crossoverType])
+
+  function updateCrossoverType(newCrossoverType){
+    setCrossoverType(newCrossoverType)
+  }
+
+  useEffect(() =>{
+    gaTourSizeRef.current = gaTourSize
+    console.log("GA Tour Size: " + gaTourSizeRef.current)
+  })
+
+  function updateGATourSize(tourSize){
+    setGATourSize(tourSize)
+  }
 
   useEffect(() =>{
     moveIncRef.current = moveInc
@@ -99,7 +134,7 @@ function App() {
   }, [moveInc])
 
   function updateMoveInc(newMoveInc){
-    setMoveInc(newMoveInc)
+    setMoveInc(parseInt(newMoveInc))
   }
 
 
@@ -153,7 +188,15 @@ function App() {
     <>
     <NavBar setGameState={setGameState}/>
     <Routes>
+      <Route path="/" element={
+        <InfoPopup 
+        />
+      }/>
       <Route path="/GAgame" element={<GAgame
+
+        infoShown={infoShown}
+        setInfoShown={setInfoShown}
+        
         stateRef={stateRef}
         setGameState={setGameState}
         
@@ -173,6 +216,14 @@ function App() {
         selAlgorRef={gaSelAlgorRef}
         updateSelAlgor={updateSelAlgor}
 
+        crossoverType={crossoverType}
+        crossoverTypeRef={crossoverTypeRef}
+        updateCrossoverType={updateCrossoverType}
+
+        tourSize={gaTourSize}
+        tourSizeRef={gaTourSizeRef}
+        updateTourSize={updateGATourSize}
+
         moveInc={moveInc}
         moveIncRef={moveIncRef}
         updateMoveInc={updateMoveInc}
@@ -188,6 +239,16 @@ function App() {
         speedMult={gaSpeedMult}
         speedMultRef={gaSpeedMultRef}
         updateSpeedMult={updateSpeedMult}
+
+        winGens={winGens}
+        setWinGens={setWinGens}
+        winMoves={winMoves}
+        setWinMoves={setWinMoves}
+
+        curGen={curGen}
+        setCurGen={setCurGen}
+        curMoves={curMoves}
+        setCurMoves={setCurMoves}
         
       />}/>
       <Route path="/NEATgame" element={<NEATgame

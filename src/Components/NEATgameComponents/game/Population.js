@@ -89,12 +89,36 @@ export default class Population{
 	}
 
 	fillMatingPool(){
+		// empty mating pool 
 		this.matingPool.splice(0, this.matingPool.length);
-		this.population.forEach((element, elementN) => { 
-			let n = element.fitness * 100;
-			for(let i = 0; i < n; i++)
-				this.matingPool.push(elementN);
-		});
+		for(let i=0; i<this.population.length; i++){
+			let participents=[]
+			for(let j=0; j<2; j++){
+				participents.push(Math.floor(Math.random() *  this.population.length))
+			}
+
+			let winner = false
+			for(let j=0; j<participents.length; j++){
+				if(!winner){
+					winner = participents[j]
+				}else{
+					if(this.population[winner].fitness < this.population[participents[j]].fitness){
+						winner = participents[j]
+					}
+				}
+			}
+			this.matingPool.push(winner)
+		}
+		// this.population.forEach((element, elementN) => { 
+		// 	let n = element.fitness// * 100;
+		// 	// for(let i = 0; i < n; i++)
+		// 	// 	this.matingPool.push(elementN);
+		// 	let participents = []
+		// });
+	}
+
+	tournamentSelection(){
+		
 	}
 
 	selectPlayer(){

@@ -2,9 +2,41 @@
     padding:5em;
 }
 
-.inputGrid{
-    display: grid;
+.InfoContainer{
+    margin-top: 1em;
+    border: 2px solid black;
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+    height: 50%;
+    background-color: white;
+    border: 9px solid black;
+    justify-content: center;
+    align-items: center;
 }
+
+.InfoGrid{
+    padding: 1em;
+    display: grid;
+    grid-template-columns: 10em 10em;
+    grid-gap: 5em;
+    height: 23.9em;
+}
+.InfoGridItem{
+    width: 10em;
+    height: 2.5em;
+    border: 4px solid black;
+    background-color: white;
+}
+
+.InfoButton{
+    width: inherit;
+    height: inherit;
+    background-color: inherit;
+    font-weight: bold;
+    font-size: large;
+}
+
 .inputRow{
     display: flex;
     gap:5em;
@@ -21,8 +53,10 @@
     height: 10em;
     flex-direction: column;
     justify-content: center;
+    align-self: center;
     align-items: center;
 }
+
 .inputTitle{
     margin: 0;
     padding: 1em;
@@ -39,12 +73,17 @@ input:disabled{
     height:inherit;
     border-radius: inherit;
     border: 0;
+   ;
 }
-.startBtn:hover{
+
+
+.startBtn:hover, .InfoButton:hover{
     background-color: rgb(211, 211, 211);
 }
 
-
+button{
+    background-color: white;
+}
 .inputBox{
     border-radius: 40%;
     border: solid black .2em;

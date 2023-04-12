@@ -8,15 +8,19 @@ import GAdashboard from "./GAdashboard"
 
 const GAgame = (props) =>{
     const {canvasData} = Data 
-    const {stateRef, setGameState,
+    const {infoShown, setInfoShown, stateRef, setGameState,
             updatePopSize, popSize, popRef,
             updateCRate, cRate, cRateRef,
             updateMRate, mRate, mRateRef,
             updateSelAlgor, selAlgor, selAlgorRef,
+            updateCrossoverType, crossoverType, crossoverTypeRef, 
+            updateTourSize, tourSize, tourSizeRef,
             updateMoveInc, moveInc, moveIncRef,
             updateMoveInt, moveInt, moveIntRef,
             updateMaxMoves, maxMoves, maxMovesRef,
-            updateSpeedMult, speedMult, speedMultRef} = props
+            updateSpeedMult, speedMult, speedMultRef,
+            winGens, setWinGens, winMoves, setWinMoves,
+            curGen, setCurGen, curMoves, setCurMoves} = props
     const canvasRef = useRef()
     const contextRef = useRef()
     const animationRef = useRef()
@@ -25,13 +29,14 @@ const GAgame = (props) =>{
     const startTimeRef = useRef(0)
     const timerRef = useRef(1000/60)
 
-
     useEffect(() =>{
         function initialise(){
             const GAinfo = {
                 crossoverRate:cRateRef.current,
                 mutationRate:mRateRef.current,
-                selectAlgor:selAlgorRef.current
+                selectAlgor:selAlgorRef.current,
+                crossoverType:crossoverTypeRef.current,
+                tourSize:tourSizeRef.current
             }
             contextRef.current = canvasRef.current.getContext("2d")
             gameRef.current = new Game(canvasData.w, canvasData.h, popRef.current, moveIncRef.current, moveIntRef.current, maxMovesRef.current, speedMultRef.current, GAinfo)
@@ -63,6 +68,12 @@ const GAgame = (props) =>{
                 case states.running:
                     contextRef.current.clearRect(0,0, canvasData.w, canvasData.h)
                     gameRef.current.run(contextRef.current)
+  
+                    setWinGens(gameRef.current.winGen)
+                    setWinMoves(gameRef.current.winMoves)
+                    setCurGen(gameRef.current.gen+1)
+                    setCurMoves(Number(gameRef.current.numMoves))
+
                     break
                 default:
                     console.log("states are broken")
@@ -89,7 +100,11 @@ const GAgame = (props) =>{
                 ref={canvasRef}
             />
         </div>
+ 
             <GAdashboard
+                infoShown={infoShown}
+                setInfoShown={setInfoShown}
+
                 setGameState={setGameState}
                 stateRef={stateRef}
 
@@ -105,6 +120,12 @@ const GAgame = (props) =>{
                 selAlgor={selAlgor}
                 updateSelAlgor={updateSelAlgor}
 
+                crossoverType={crossoverType}
+                updateCrossoverType={updateCrossoverType}
+
+                tourSize={tourSize}
+                updateTourSize={updateTourSize}
+
                 moveInc={moveInc}
                 updateMoveInc={updateMoveInc}
 
@@ -116,6 +137,12 @@ const GAgame = (props) =>{
                 
                 speedMult={speedMult}
                 updateSpeedMult={updateSpeedMult}
+
+                winGen={winGens}
+                winMove={winMoves}
+
+                curGen={curGen}
+                curMoves={curMoves}
             />
         </>
     )
