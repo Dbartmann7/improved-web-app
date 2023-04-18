@@ -73,16 +73,17 @@ export class Individual_Bot extends Entity{
     }
 
     evaluate(){
-        let a = Math.pow(goalData.x+50 - this.x, 2)
-        let b = Math.pow(goalData.y-100 - this.y, 2)
-        this.fitness = a
+        let M = this.canvasData.w
+        let D = goalData.x - this.x 
+        //let b = Math.pow(goalData.y-100 - this.y, 2)
+        this.fitness = M - D + 100
         if(!this.alive){
-            this.fitness += 100
+            this.fitness -= 100
         }
 
         for(let i=0; i<spikes.length; i++){
             if(this.x > spikes[i].x + spikes[i].w){
-                this.fitness -= 100
+                this.fitness += 100
             }
         }
     }

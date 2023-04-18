@@ -34,6 +34,11 @@ export class GeneticAlgorithm{
         // }
 
         for(let i=0; i<this.popSize/2; i++){
+            if(i===Math.floor(this.popSize/2) && this.popSize % 2 === 1 && this.sAlgorithm === "tour"){
+                newPopulation.push(population[parents[0]].clone())
+                console.log(newPopulation.length)
+                return newPopulation
+            }
             let par1index = parents.splice(Math.floor(Math.random() * parents.length), 1)
             let par2index = parents.splice(Math.floor(Math.random() * parents.length), 1)
             // while(par2index === par1index){
@@ -118,7 +123,7 @@ export class GeneticAlgorithm{
                 participents.push(Math.floor(Math.random()*population.length))
                 population[participents[j]].evaluate()
                 
-                if(j == 0 || population[winner].fitness > population[participents[j]].fitness){
+                if(j == 0 || population[winner].fitness < population[participents[j]].fitness){
                     winner = participents[j]
                 }
             }
@@ -130,46 +135,41 @@ export class GeneticAlgorithm{
     RoulSelection(population){
         let parents = []
         let probabilities = []
-        function compare(a, b){
-            if(a.fitness<b.fitness){
-                return 1 
-            }else{
-                return -1
-            }
-        }
-        let sum = 0
+        
+        let sum=0
         for(let i=0; i<population.length; i++){
             population[i].evaluate()
-            sum += i+1;
+            sum += population[i].fitness
         }
 
-        for(let i=1; i<=population.length; i++){
-            probabilities.push(i/sum)
-        }
-        
-        population = population.sort(compare)
+        population.sort((a,b) => b.fitness-a.fitness)
 
         for(let i=0; i<population.length; i++){
-            let x = Math.random()
-            for(let j=0; j<population.length; j++){
-                if(x<=probabilities[j]){
-                    parents.push(j)
+            probabilities.push(population[i].fitness/sum)
+            console.log(population[i].fitness)
+        }
+
+        let x = Math.random()
+        for(let j=0; j<population.length; j++){
+            for(let i=0; i<probabilities.length; i++){
+                if(x<=probabilities[i]){
+                    parents.push(i)
                     break
                 }else{
-                    x -= probabilities[j]
+                    x -= probabilities[i]
                 }
             }
-
         }
-        console.log(parents)
+        
+        
         return parents
     }
 
     RankSelection(population){
         let parents = []
-        let ranks = []
+      
         function compare(a, b){
-            if(a.fitness<b.fitness){
+            if(a.fitness>b.fitness){
                 return 1 
             }else{
                 return -1
@@ -203,7 +203,6 @@ export class GeneticAlgorithm{
         let cPoint =  Math.floor(Math.random()*numMoves)
         child1.moves = parent1.moves.slice(0, cPoint).concat(parent2.moves.slice(cPoint))
         child2.moves = parent2.moves.slice(0, cPoint).concat(parent1.moves.slice(cPoint))
-        console.log("single")
     }
 
     doublePointCrossover(parent1, parent2, child1, child2, numMoves){
@@ -211,6 +210,5 @@ export class GeneticAlgorithm{
         let cPoint2 =  Math.floor(Math.random()* (numMoves - cPoint1))
         child1.moves = parent1.moves.slice(0, cPoint1).concat(parent2.moves.slice(cPoint1, cPoint2).concat(parent1.moves.slice(cPoint2)))
         child2.moves = parent2.moves.slice(0, cPoint1).concat(parent1.moves.slice(cPoint1, cPoint2).concat(parent2.moves.slice(cPoint2)))
-        console.log("double")
     }
 }

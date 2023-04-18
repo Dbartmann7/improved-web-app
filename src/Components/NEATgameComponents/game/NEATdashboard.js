@@ -42,16 +42,6 @@ const NEATdashboard = (props) =>{
                             ref={popInputRef}
                         />
                     </div>
-                    <div className="inputGridItem">
-                        <h2 className="inputTitle">Crossover Rate</h2>
-                        <input
-                            className="inputBox"
-                            type="text"
-                            value={cRate}
-                            onChange={e => {updateCRate(e.target.value)}}
-                            ref={cRateInputRef}
-                        />
-                    </div>
                 </div>
             </div>
         </div>

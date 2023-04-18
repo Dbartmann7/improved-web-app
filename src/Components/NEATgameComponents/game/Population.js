@@ -91,6 +91,16 @@ export default class Population{
 	fillMatingPool(){
 		// empty mating pool 
 		this.matingPool.splice(0, this.matingPool.length);
+		// this.tournamentSelection()
+		
+		this.population.forEach((element, elementN) => { 
+			let n = element.fitness * 100;
+			for(let i = 0; i < n; i++)
+				this.matingPool.push(elementN);
+		});
+	}
+
+	tournamentSelection(){
 		for(let i=0; i<this.population.length; i++){
 			let participents=[]
 			for(let j=0; j<2; j++){
@@ -109,16 +119,6 @@ export default class Population{
 			}
 			this.matingPool.push(winner)
 		}
-		// this.population.forEach((element, elementN) => { 
-		// 	let n = element.fitness// * 100;
-		// 	// for(let i = 0; i < n; i++)
-		// 	// 	this.matingPool.push(elementN);
-		// 	let participents = []
-		// });
-	}
-
-	tournamentSelection(){
-		
 	}
 
 	selectPlayer(){

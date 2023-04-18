@@ -42,10 +42,7 @@ const GAgame = (props) =>{
             gameRef.current = new Game(canvasData.w, canvasData.h, popRef.current, moveIncRef.current, moveIntRef.current, maxMovesRef.current, speedMultRef.current, GAinfo)
             gameRef.current.initialise()
         }
-        function checkValid(){
-            let valid = false
-            return true
-        }
+        
         const run = () =>{
         if(Date.now() - startTimeRef.current > timerRef.current){
 
@@ -55,14 +52,10 @@ const GAgame = (props) =>{
                     break
                 case states.starting:
                     console.log("starting...")
-                    let valid = checkValid()
-                    if(valid){
-                        initialise()
-                        setGameState(states.running)
-                    }else{
-                        alert("parameters are not valid")
-                        setGameState(states.paused)
-                    }
+                    
+                    initialise()
+                    setGameState(states.running)
+                  
                     
                     break
                 case states.running:

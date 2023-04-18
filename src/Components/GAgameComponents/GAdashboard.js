@@ -17,16 +17,7 @@ const GAdashboard = (props) =>{
             speedMult, updateSpeedMult,
             winGen, winMove, curGen, curMoves} = props
     
-    const popInputRef = useRef()
-    const cRateInputRef = useRef()
-    const mRateInputRef = useRef()
-    const selAlgorInputRef = useRef()
-    const moveIncInputRef = useRef()
-    const moveIntInputRef = useRef()
-    const maxMovesInputRef = useRef()
-    const speedMultInputRef = useRef()
-    
-
+  
     const selAlgorOptions = [
         {value: "tour", label: "Tournament", isdisabled: false},
         {value: "roul", label: "Roulette", isdisabled: false},
@@ -59,38 +50,9 @@ const GAdashboard = (props) =>{
     const speedMultSelectedRef = useRef(speedMultOptions[0])
     const crossoverTypeSelectedRef = useRef(crossoverTypeOptions[0])
 
-    // useEffect(() =>{
-    //     if(stateRef.current === states.starting || stateRef.current === states.running){
-    //         popInputRef.current.disabled = true
-    //         cRateInputRef.current.disabled = true
-    //         mRateInputRef.current.disabled = true
-    //         for(let i=0; i<selAlgorOptions.length; i++){
-    //             selAlgorOptions[i].isdisabled = true
-    //         }
-    //         for(let i=0; i<speedMultOptions.length; i++){
-    //             speedMultOptions[i].isdisabled = true
-    //         }
-    //         moveIncInputRef.current.disabled = true
-    //         moveIntInputRef.current.disabled = true
-    //         maxMovesInputRef.current.disabled = true
-    //     }else{
-    //         popInputRef.current.disabled = false
-    //         cRateInputRef.current.disabled = false
-    //         mRateInputRef.current.disabled = false
-    //         for(let i=0; i<selAlgorOptions.length; i++){
-    //             selAlgorOptions[i].isdisabled = false
-    //         }
-    //         for(let i=0; i<speedMultOptions.length; i++){
-    //             speedMultOptions[i].isdisabled = false
-    //         }
-    //         moveIncInputRef.current.disabled = false
-    //         moveIntInputRef.current.disabled = false
-    //         maxMovesInputRef.current.disabled = false
-    //         speedMultInputRef.current.disabled = false
-    //     }
-    // }, [stateRef.current])
+  
     function startGame(){
-        if(!checkValid(popSize, validation.popSize, 2, 10000) || popSize % 2 === 1){
+        if(!checkValid(popSize, validation.popSize, 2, 10000)){
             alert("Please enter a valid Population Size")
             return
         }
@@ -148,12 +110,7 @@ const GAdashboard = (props) =>{
                         
                     </div>
                     <div className="inputGridItem">
-                        <button className="startBtn" onClick={ () =>{setInfoShown(true)}}>
-                            <h1>Tutorial</h1>
-                        </button>
-                    </div>
-                    <div className="inputGridItem">
-                        <h3 style={{marginLeft:1+"em"}}>
+                        <h3>
                             Current Gen: {curGen}<br/>
                             Current Moves: {curMoves}<br/>
                             Won in {winGen} Generations<br/>
@@ -168,7 +125,7 @@ const GAdashboard = (props) =>{
                             min={2}
                             value={popSize}
                             onChange={e =>{updatePopSize(e.target.value)}}
-                            ref={popInputRef}
+                            
                         />
                     </div>
                     <div className="inputGridItem">
@@ -178,7 +135,7 @@ const GAdashboard = (props) =>{
                             type="text"
                             value={cRate}
                             onChange={e =>{updateCRate(e.target.value)}}
-                            ref={cRateInputRef}
+                           
                         />
                     </div>
                     <div className="inputGridItem">
@@ -188,7 +145,7 @@ const GAdashboard = (props) =>{
                             type="text"
                             value={mRate}
                             onChange={e =>{updateMRate(e.target.value)}}
-                            ref={mRateInputRef}
+                            
                         />
                     </div>
                     <div className="inputGridItem">
@@ -200,7 +157,7 @@ const GAdashboard = (props) =>{
                             onChange={e =>{updateSelAlgor(e.value)}}
                             options={selAlgorOptions}
                             isOptionDisabled={(option) => option.isdisabled}
-                            ref={selAlgorInputRef}
+                            
                         />
                     </div>
                     <div className="inputGridItem">
@@ -212,7 +169,7 @@ const GAdashboard = (props) =>{
                             onChange={e =>{updateCrossoverType(e.value)}}
                             options={crossoverTypeOptions}
                             isOptionDisabled={(option) => option.isdisabled}
-                            ref={selAlgorInputRef}
+                            
                         />
                     </div>
 
@@ -234,7 +191,7 @@ const GAdashboard = (props) =>{
                             type="text"
                             value={moveInc}
                             onChange={e =>{updateMoveInc(e.target.value)}}
-                            ref={moveIncInputRef}
+                            
                         />
                     </div>
                     <div className="inputGridItem">
@@ -244,7 +201,7 @@ const GAdashboard = (props) =>{
                             type="text"
                             value={moveInt}
                             onChange={e =>{updateMoveInt(e.target.value)}}
-                            ref={moveIntInputRef}
+                          
                         />
                     </div>
                     <div className="inputGridItem">
@@ -254,7 +211,7 @@ const GAdashboard = (props) =>{
                             type="text"
                             value={maxMoves}
                             onChange={e =>{updateMaxMoves(e.target.value)}}
-                            ref={maxMovesInputRef}
+                           
                         />
                     </div>
                     <div className="inputGridItem">
@@ -266,7 +223,7 @@ const GAdashboard = (props) =>{
                             onChange={e =>{updateSpeedMult(e.value)}}
                             options={speedMultOptions}
                             isOptionDisabled={(option) => option.isdisabled}
-                            ref={speedMultInputRef}
+                           
                         />
                     </div>
                 </div>

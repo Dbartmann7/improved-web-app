@@ -63,7 +63,10 @@ export class Game{
     }
 
     addCube(){
-        this.cubes.push(new Cube(20, 20, Math.abs(Math.random()*(this.width-10)) + 5, 50, this.cubeNum, Math.random()))
+        let spawnX = Math.floor(Math.random()*this.width)
+        if(spawnX < Data.playerData.w) spawnX = 101
+        if(spawnX > Data.canvasData.w - Data.playerData.w - 10) spawnX = Data.canvasData.w - Data.playerData.w - 20
+        this.cubes.push(new Cube(20, 20, spawnX , 50, this.cubeNum, Math.random()))
         this.timeSinceLastSpawn = Date.now()
         this.idNum++
     }

@@ -31,8 +31,8 @@ export class Game{
         this.moveImpact = 6
         this.impactCount = 0
         this.gen = 0
-        this.winGen = "N/A"
-        this.winMoves = "N/A"
+        this.winGen = 0
+        this.winMoves = 0
 
         // main game loop
         this.run = (context) =>{
@@ -74,10 +74,10 @@ export class Game{
     draw(context){
         this.goal.draw(context)
         // draw spikes
-        for(var j=0; j<this.spikes.length; j++){
+        for(let j=0; j<this.spikes.length; j++){
             this.spikes[j].draw(context)
         }
-        for(var j=0; j<this.grounds.length; j++){
+        for(let j=0; j<this.grounds.length; j++){
             this.grounds[j].draw(context)
         }
         this.population.draw(context)
@@ -90,7 +90,13 @@ export class Game{
         // evolve population, reset game and start again
 
         if((this.gen+1) % this.movesInterval ===0 && this.population.numMoves < this.movesCap){
-            this.population.increaseMoves(this.movesInc)
+            if(this.numMoves + this.movesInc <= this.movesCap){
+                this.population.increaseMoves(this.movesInc)
+            }
+            else{
+                this.population.increaseMoves(this.movesInc)
+            }
+            
             this.numMoves += Number(this.movesInc)
             console.log(this.movesInc)
         

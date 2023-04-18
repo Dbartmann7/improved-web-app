@@ -45,8 +45,8 @@ function App() {
   const [gaSpeedMult, setGASpeedMult] = useState(1)
   const gaSpeedMultRef = useRef(gaSpeedMult)
 
-  const [winGens, setWinGens] = useState("N/A")
-  const [winMoves, setWinMoves] = useState("N/A")
+  const [winGens, setWinGens] = useState(0)
+  const [winMoves, setWinMoves] = useState(0)
   const [curGen, setCurGen] = useState(0)
   const [curMoves, setCurMoves] = useState(0)
   //Neat data
