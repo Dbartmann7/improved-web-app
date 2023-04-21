@@ -1,4 +1,4 @@
-import React, { useEffect , useRef} from "react"
+import React, { useEffect , useRef, useState} from "react"
 import Data from "./Data"
 import "../../App.css"
 import NEATdashboard from "./game/NEATdashboard"
@@ -8,17 +8,26 @@ import { Game } from "./game/game"
 
 const NEATgame = (props) =>{
     let {canvasData} = Data
-    let {stateRef, setGameState, 
-        curBest, setCurBest, overallBest, setOverallBest, 
-        updatePopSize, popSize, popRef,
-        updateCRate, cRate, cRateRef} = props
+    let {stateRef, setGameState} = props
     let animationRef = useRef()
     let canvasRef = useRef()
     let contextRef = useRef()
     let gameRef = useRef(null)
 
+    const [curBest, setCurBest] = useState()
+    const [overallBest, setOverallBest] = useState()
+  
+    const [popSize, setPopSize] = useState(20)
+    const popRef = useRef(popSize)
+
     let curBestRef = useRef()
     let overallBestRef = useRef()
+
+    useEffect(() =>{
+        popRef.current = popSize
+        console.log("Neat Pop Size: " + popRef.current)
+      }, [popSize])
+    
 
     useEffect(() =>{
         function changeBest(best, reset=false){
@@ -89,11 +98,9 @@ const NEATgame = (props) =>{
                 curBest={curBest}
                 overallBest={overallBest}
 
-                updatePopSize={updatePopSize}
+                setPopSize={setPopSize}
                 popSize={popSize}
 
-                updateCRate={updateCRate}
-                cRate={cRate}
             />
         </div>
     )

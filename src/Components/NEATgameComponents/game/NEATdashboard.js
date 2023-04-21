@@ -2,19 +2,30 @@ import { useEffect, useRef } from "react"
 import { states } from "../../../States"
 import "../../Dashboard.css"
 const NEATdashboard = (props) =>{
-    const {setGameState, stateRef, 
+    const {setGameState, 
             curBest, overallBest,
-            updatePopSize, popSize,
-            updateCRate, cRate} = props
+            setPopSize, popSize} = props
     
     const popInputRef = useRef() 
-    const cRateInputRef= useRef()
-    // useEffect(() =>{
-    //     if(stateRef.current === states.starting || stateRef.current === states.running){
-    //         popInputRef.current.disabled = true
-    //         cRateInputRef.current.disabled = true
-    //     }
-    // }, [stateRef.current])
+   
+    function StartGame(){
+        let validChars = ["0","1","2","3","4","5","6","7","8","9"]
+
+        if(popSize < 2 || popSize > 10000){
+            alert("Please enter a valid Population Size")
+            return
+        }
+        popSize.toString().split("").forEach(char =>{
+            if(!validChars.includes(char)){
+                alert("Please enter a valid Population Size")
+                return
+            }
+        })
+
+        setGameState(states.starting)
+    }
+
+
     return(
         <div className="DashboardContainer">
             <div className="inputGrid">
@@ -26,7 +37,7 @@ const NEATdashboard = (props) =>{
                         </h2>
                     </div>
                     <div className="inputGridItem">
-                        <button className="startBtn" onClick={ () =>{setGameState(states.starting)}}>
+                        <button className="startBtn" onClick={ () =>{StartGame()}}>
                             <h2>Start Game</h2>
                         </button>
                     </div>
@@ -38,7 +49,7 @@ const NEATdashboard = (props) =>{
                             className="inputBox"
                             type="text"
                             value={popSize}
-                            onChange={e =>{updatePopSize(e.target.value)}}
+                            onChange={e =>{setPopSize(e.target.value)}}
                             ref={popInputRef}
                         />
                     </div>

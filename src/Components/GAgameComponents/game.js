@@ -65,7 +65,7 @@ export class Game{
 
     update(){
         this.population.update()   
-        if(this.population.hasWon && this.winGen === "N/A"){
+        if(this.population.hasWon && this.winGen === 0){
             this.winGen = this.gen
             this.winMoves = this.population.iteration
         }

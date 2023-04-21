@@ -4,17 +4,17 @@ import { states } from "../../States"
 import "../Dashboard.css"
 import InfoPopup from "./Info"
 const GAdashboard = (props) =>{
-    const {infoShown, setInfoShown, setGameState, stateRef,
-            popSize, updatePopSize,
-            cRate, updateCRate,
-            mRate, updateMRate,
-            selAlgor, updateSelAlgor,
-            crossoverType, updateCrossoverType,
-            tourSize, updateTourSize,
-            moveInc, updateMoveInc,
-            moveInt, updateMoveInt,
-            maxMoves, updateMaxMoves,
-            speedMult, updateSpeedMult,
+    const {setGameState,
+            popSize, setPopSize,
+            cRate, setCRate,
+            mRate, setMRate,
+            setSelAlgor,
+            setCrossoverType,
+            tourSize, setTourSize,
+            moveInc, setMoveInc,
+            moveInt, setMoveInt,
+            maxMoves, setMaxMoves,
+            setSpeedMult,
             winGen, winMove, curGen, curMoves} = props
     
   
@@ -124,7 +124,7 @@ const GAdashboard = (props) =>{
                             type="number"
                             min={2}
                             value={popSize}
-                            onChange={e =>{updatePopSize(e.target.value)}}
+                            onChange={e =>{setPopSize(e.target.value)}}
                             
                         />
                     </div>
@@ -134,7 +134,7 @@ const GAdashboard = (props) =>{
                             className="inputBox"
                             type="text"
                             value={cRate}
-                            onChange={e =>{updateCRate(e.target.value)}}
+                            onChange={e =>{setCRate(e.target.value)}}
                            
                         />
                     </div>
@@ -144,7 +144,7 @@ const GAdashboard = (props) =>{
                             className="inputBox"
                             type="text"
                             value={mRate}
-                            onChange={e =>{updateMRate(e.target.value)}}
+                            onChange={e =>{setMRate(e.target.value)}}
                             
                         />
                     </div>
@@ -154,7 +154,7 @@ const GAdashboard = (props) =>{
                             //className="inputBox"
                             defaultValue={sAlgorSelectedRef.current}
                             //style={{width: 10+"em"}}
-                            onChange={e =>{updateSelAlgor(e.value)}}
+                            onChange={e =>{setSelAlgor(e.value)}}
                             options={selAlgorOptions}
                             isOptionDisabled={(option) => option.isdisabled}
                             
@@ -166,7 +166,7 @@ const GAdashboard = (props) =>{
                             //className="inputBox"
                             defaultValue={crossoverTypeSelectedRef.current}
                             //style={{width: 10+"em"}}
-                            onChange={e =>{updateCrossoverType(e.value)}}
+                            onChange={e =>{setCrossoverType(e.value)}}
                             options={crossoverTypeOptions}
                             isOptionDisabled={(option) => option.isdisabled}
                             
@@ -181,7 +181,7 @@ const GAdashboard = (props) =>{
                             className="inputBox"
                             type="text"
                             value={tourSize}
-                            onChange={e =>{updateTourSize(e.target.value)}}
+                            onChange={e =>{setTourSize(e.target.value)}}
                         />
                     </div>
                     <div className="inputGridItem">
@@ -190,7 +190,7 @@ const GAdashboard = (props) =>{
                             className="inputBox"
                             type="text"
                             value={moveInc}
-                            onChange={e =>{updateMoveInc(e.target.value)}}
+                            onChange={e =>{setMoveInc(e.target.value)}}
                             
                         />
                     </div>
@@ -200,7 +200,7 @@ const GAdashboard = (props) =>{
                             className="inputBox"
                             type="text"
                             value={moveInt}
-                            onChange={e =>{updateMoveInt(e.target.value)}}
+                            onChange={e =>{setMoveInt(e.target.value)}}
                           
                         />
                     </div>
@@ -210,17 +210,15 @@ const GAdashboard = (props) =>{
                             className="inputBox"
                             type="text"
                             value={maxMoves}
-                            onChange={e =>{updateMaxMoves(e.target.value)}}
+                            onChange={e =>{setMaxMoves(e.target.value)}}
                            
                         />
                     </div>
                     <div className="inputGridItem">
                         <h2 className="inputTitle">Speed Multiplier</h2>
                         <Select
-                            //className="inputBox"
                             defaultValue={speedMultSelectedRef.current}
-                            //style={{width: 10+"em"}}
-                            onChange={e =>{updateSpeedMult(e.value)}}
+                            onChange={e =>{setSpeedMult(e.value)}}
                             options={speedMultOptions}
                             isOptionDisabled={(option) => option.isdisabled}
                            

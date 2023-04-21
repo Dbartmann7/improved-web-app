@@ -240,7 +240,7 @@ const Info = (props) =>{
                                 <p>
                                     The Genome of the ANN is represented by 2 lists: A Node List and a Connection List, shown below.<br/>
                                     <br/><img src={require("../../Images/neat_genome.PNG")} width={75+"%"}></img><br/>
-                                    Image from the original NEAT paper<br/>
+                                    Image from the original NEAT paper<br/><br/>
                                     Each node contains an ID number and a value indicating which layer it is in. In this implementation, each node also contains a bias and activation function. Each connection contains the ID of both the 
                                     input node and output node, the weight of the connection, a value indicating whether the connection is enabled or disabled and the innovation number of the connection. The innovation number will be explained in the crossover section.
                                 </p>
@@ -251,9 +251,22 @@ const Info = (props) =>{
                                 </p>
                             <h2><u>Mutation</u></h2>
                                 <p>
-                                    
+                                    In mutation, there is a random chance that the weights, biases or activation function is changed. There are many ways to change the weights and biases such as changing them 
+                                    to a random value within a range or by using a random gaussian distribution.<br/>
+                                    NEAT also has a very low chance to mutate the structure of the ANN. It does this by either adding a connection with a random weight between 2 unconnected nodes that are in different layers, or by adding a new node inbetween 2 connected nodes.
+                                    <br/><img src={require("../../Images/neat_mutation.PNG")} width={75+"%"}></img><br/>Image from the original NEAT paper showing the 2 structural mutations<br/><br/>
+                                    This allows the NEAT algorithm to explore how effective more complicated structures are at solving the given problem. 
                                 </p>
-                             
+                            <h2><u>Crossover</u></h2>
+                                <p>
+                                    There are 3 types of connections when trying to combine 2 parent ANNs:
+                                </p>
+                                    <ul>
+                                        <li>Matching Connections - Connections that have the same connection ny</li>
+                                    </ul>
+                                <p>
+                                <br/><img src={require("../../Images/neat_crossover.PNG")} width={75+"%"}></img><br/>Image from the original neat paper showing how crossover in NEAT works.<br/><br/>
+                                </p>
                             <p>Original NEAT paper: Stanley, K.O. and Miikkulainen, R., 2002. Evolving neural networks through augmenting topologies. Evolutionary computation, 10(2), pp.99-127.
 </p>       
                     </div>
