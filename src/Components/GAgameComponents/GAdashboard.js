@@ -52,31 +52,31 @@ const GAdashboard = (props) =>{
 
   
     function startGame(){
-        if(!checkValid(popSize, validation.popSize, 2, 10000)){
-            alert("Please enter a valid Population Size")
+        if(!checkValid(popSize, validation.popSize, 2, 1000)){
+            alert("Please enter a valid Population Size (between 2 and 1000)")
             return
         }
         if(!checkValid(cRate, validation.crossoverRate, 0, 1)){
-            alert("Please enter a valid Crossover Rate")
+            alert("Please enter a valid Crossover Rate (between 0 and 1")
             return
         }
         if(!checkValid(mRate, validation.mutationRate, 0, 1)){
-            alert("Please enter a valid Mutation Rate")
+            alert("Please enter a valid Mutation Rate (between 0 and 1)")
             return
         }
-        if(!checkValid(tourSize, validation.tournamentSize, 1, popSize)){
+        if(!checkValid(tourSize, validation.tournamentSize, 1, Math.floor(popSize/2))){
             alert("Please enter a valid Tournament Size")
             return
         }
-        if(!checkValid(moveInc, validation.incrementSize, 1, 100000)){
+        if(!checkValid(moveInc, validation.incrementSize, 1, 1000)){
             alert("Please enter a valid Move Increment")
             return
         }
-        if(!checkValid(moveInt, validation.intervalSize, 1, 100000)){
+        if(!checkValid(moveInt, validation.intervalSize, 1, 100)){
             alert("Please enter a valid Move Interval")
             return
         }
-        if(!checkValid(maxMoves, validation.maxMovesSize, 1, 100000)){
+        if(!checkValid(maxMoves, validation.maxMovesSize, 1, 1000)){
             alert("Please enter a valid Maximum amount of moves")
             return
         }
