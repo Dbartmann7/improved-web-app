@@ -16,18 +16,22 @@ const NEATgame = (props) =>{
 
     const [curBest, setCurBest] = useState()
     const [overallBest, setOverallBest] = useState()
+
+    const [curGen, setCurGen] = useState()
   
     const [popSize, setPopSize] = useState(20)
     const popRef = useRef(popSize)
 
     let curBestRef = useRef()
     let overallBestRef = useRef()
+    let curGenRef = useRef()
+
 
     useEffect(() =>{
         popRef.current = popSize
         console.log("Neat Pop Size: " + popRef.current)
       }, [popSize])
-    
+
 
     useEffect(() =>{
         function changeBest(best, reset=false){
@@ -64,6 +68,7 @@ const NEATgame = (props) =>{
                     contextRef.current.clearRect(0,0, canvasRef.current.width, canvasRef.current.height)
                     gameRef.current.run(contextRef.current)
                     changeBest(gameRef.current.getBestScore())
+                    setCurGen(gameRef.current.currentGeneration)
                     break
                 default:
                     console.log("states are broken")
@@ -98,6 +103,7 @@ const NEATgame = (props) =>{
                 curBest={curBest}
                 overallBest={overallBest}
 
+                curGen={curGen}
                 setPopSize={setPopSize}
                 popSize={popSize}
 

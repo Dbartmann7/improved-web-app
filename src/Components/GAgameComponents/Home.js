@@ -1,8 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import "../../Info.css"
 
-const Home = (props) =>{
-    const {setInfoShown} = props
+const Home = () =>{
     const [showingMain, setShowingMain] = useState(true)
     const [showingTutorial, setShowingTutorial] = useState(false)
     const [showingGA, setShowingGA] = useState(false)

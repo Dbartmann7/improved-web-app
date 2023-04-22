@@ -15,6 +15,7 @@ export class Game{
         this.timeSinceLastSpawn = null
         this.spawnTime = 1250
         this.cubeNum = 0
+        this.currentGeneration = 0
 
         this.run = (context) =>{
             if(!this.population.done()){
@@ -28,6 +29,7 @@ export class Game{
                     this.removeCube()
                 }
             }else{
+                this.currentGeneration++
                 this.population.naturalSelection()
             }
             return context
@@ -59,6 +61,7 @@ export class Game{
 
     initialise(){
         this.addCube()
+        this.currentGeneration = 1;
         this.timeSinceLastSpawn = Date.now()
     }
 
@@ -94,6 +97,8 @@ export class Game{
     
     getBestScore(){
         return this.population.getBestScore()
-
     }
+
+   
+    
 }

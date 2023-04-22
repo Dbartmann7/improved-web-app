@@ -3,7 +3,7 @@ import { states } from "../../../States"
 import "../../Dashboard.css"
 const NEATdashboard = (props) =>{
     const {setGameState, 
-            curBest, overallBest,
+            curBest, overallBest, curGen,
             setPopSize, popSize} = props
     
     const popInputRef = useRef() 
@@ -33,7 +33,8 @@ const NEATdashboard = (props) =>{
                     <div className="inputGridItem">
                         <h2>
                             Current Best: {curBest}<br/>
-                            Overall Best: {overallBest} 
+                            Overall Best: {overallBest}<br/>
+                            Current Gen: {curGen}
                         </h2>
                     </div>
                     <div className="inputGridItem">
