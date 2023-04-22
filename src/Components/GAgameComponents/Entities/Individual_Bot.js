@@ -40,15 +40,17 @@ export class Individual_Bot extends Entity{
         }
         if(this.x < 0) this.x=0
         if(this.x > this.canvasData.w-this.w) this.x=this.canvasData.w-this.w
-        if(this.x<0) this.x = 0
+
         this.won = isColliding(this, goalData)
-        this.onGround = false
+ 
         for(let i=0; i<grounds.length; i++){
          
             if(isColliding(this, grounds[i])){
                 this.y=grounds[i].y-this.h
                 this.onGround = true
+                break
             }
+            this.onGround = false
         }
         //this.onGround = (this.y >= this.canvasData.h-this.h)
     }

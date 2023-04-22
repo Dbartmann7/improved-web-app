@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react"
 import Select from "react-select"
 import { states } from "../../States"
 import "../Dashboard.css"
-import InfoPopup from "./Info"
+import InfoPopup from "./Home"
 const GAdashboard = (props) =>{
     const {setGameState,
             popSize, setPopSize,

@@ -5,7 +5,7 @@ import './App.css';
 import NavBar from './Components/NavBar';
 import { useState, useRef, useEffect } from 'react';
 import {states} from './States.js';
-import InfoPopup from './Components/GAgameComponents/Info';
+import Home from './Components/GAgameComponents/Home';
 
 function App() {
 
@@ -23,7 +23,7 @@ function App() {
     <NavBar setGameState={setGameState}/>
     <Routes>
       <Route path="/" element={
-        <InfoPopup 
+        <Home
         />
       }/>
       <Route path="/GAgame" element={<GAgame

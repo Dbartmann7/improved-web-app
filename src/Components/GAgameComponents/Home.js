@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import "../../Info.css"
 
-const Info = (props) =>{
+const Home = (props) =>{
     const {setInfoShown} = props
     const [showingMain, setShowingMain] = useState(true)
     const [showingTutorial, setShowingTutorial] = useState(false)
@@ -208,6 +208,7 @@ const Info = (props) =>{
                             <p>
                                 Like Genetic Algorithms, NEAT is a form of A.I. that attempts to find the best solution to a given problem through Natural Selection. NEAT follows the main steps of 
                                 Genetic Algorithms (Selection. Crossover, Mutation), however the key difference is while standard Genetic Algorithms evolve a sequence of values, NEAT evolves Artificial Neural Networks.
+                                
                             </p>
                             <h1><u>1. Artificial Neural Networks</u></h1>
                                 <p>
@@ -255,6 +256,8 @@ const Info = (props) =>{
                                     to a random value within a range or by using a random gaussian distribution.<br/>
                                     NEAT also has a very low chance to mutate the structure of the ANN. It does this by either adding a connection with a random weight between 2 unconnected nodes that are in different layers, or by adding a new node inbetween 2 connected nodes.
                                     <br/><img src={require("../../Images/neat_mutation.PNG")} width={75+"%"}></img><br/>Image from the original NEAT paper showing the 2 structural mutations<br/><br/>
+                                    Every connection is within the network is tracked and given an "innovation number". Whenever a new connection is created, it is checked against every existing connection. If the connection already exists, it is given the same innovation number. If it does not, it 
+                                    is given a new innovation number. The innovation number starts at 1 and is incremented whenever a brand new connection is added. This innovation number is important during crossover.
                                     This allows the NEAT algorithm to explore how effective more complicated structures are at solving the given problem. 
                                 </p>
                             <h2><u>Crossover</u></h2>
@@ -262,13 +265,32 @@ const Info = (props) =>{
                                     There are 3 types of connections when trying to combine 2 parent ANNs:
                                 </p>
                                     <ul>
-                                        <li>Matching Connections - Connections that have the same connection ny</li>
+                                        <li>Matching Connections - Connections that exist in both parents (i.e. they have the same innovation number)</li>
+                                        <li>Disjoint Connections - Connections that only exist in 1 parent and the other parent has an innovation number greater than the disjoint connection</li>
+                                        <li>Excess Connections - Connections that only exist in 1 parent and has an innovation number greater than the largest innovation number in the other parent</li>
                                     </ul>
                                 <p>
+                                During crossover, the connection lists for both parents are combined. If a connection is matching, the connection that is passed on is randomly selected. If a connection 
+                                is a disjoin or excess connection, it is passed on with no changes. 
                                 <br/><img src={require("../../Images/neat_crossover.PNG")} width={75+"%"}></img><br/>Image from the original neat paper showing how crossover in NEAT works.<br/><br/>
                                 </p>
-                            <p>Original NEAT paper: Stanley, K.O. and Miikkulainen, R., 2002. Evolving neural networks through augmenting topologies. Evolutionary computation, 10(2), pp.99-127.
-</p>       
+                            <h2><u>Speciation</u></h2>
+                            <p>
+                                Speciation is not included in this implementation but is important when NEAT starts to produce a variety of complicated networks. When a new connection or node is added, they weights and biases 
+                                will likely not be optimal for the new structure. This can lead to a new structure being eliminated from the population before it has had a chance to optimise it's weights and biases. 
+                                Speciation divides the population into different species. A new species is created whenever a network becomes to different from the rest of the population to be compaired fairly. Then, all new networks that are 
+                                similar to the new species are added to that species. Netowrks can only crossover with other networks within the same population   
+                                <br/>
+                                The difference between each gene is calculated by this function:
+                                <br/><img src={require("../../Images/speciation_function.PNG")} width={25+"%"}></img><br/>Image from the original neat paper<br/><br/>
+                                c1, c2, and c3 are contstants, E is the number of excess genes, D is the number disjoint genes, W is the average of all the weights in the network and N is the number 
+                                of total connections (N is set to 1 if there are fewer than 20 connections). If the difference between 2 networks is lower than a predefined threshold, they are the same species. 
+                                If a network cannot be placed in the same species as any species that currently exists, a new species is created. <br/>
+                                The main benifit of speciation is that allows the algorithm to keep networks brand new complicated networks for longer. This allows for more complicated networks to be explored.
+                            </p>
+                            <p>
+                                Original NEAT paper: Stanley, K.O. and Miikkulainen, R., 2002. Evolving neural networks through augmenting topologies. Evolutionary computation, 10(2), pp.99-127.
+                            </p>       
                     </div>
                 </div>:null}
             </div>
@@ -277,4 +299,4 @@ const Info = (props) =>{
 
 }
 
-export default Info
+export default Home
