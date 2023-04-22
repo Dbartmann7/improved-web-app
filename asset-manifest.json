@@ -1,13 +1,25 @@
 {
   "files": {
-    "main.css": "/improved-web-app/static/css/main.c564a4ae.css",
-    "main.js": "/improved-web-app/static/js/main.ba8ad6df.js",
-    "index.html": "/improved-web-app/index.html",
-    "main.c564a4ae.css.map": "/improved-web-app/static/css/main.c564a4ae.css.map",
-    "main.ba8ad6df.js.map": "/improved-web-app/static/js/main.ba8ad6df.js.map"
+    "main.css": "/static/css/main.5e1c6555.css",
+    "main.js": "/static/js/main.7eeba825.js",
+    "static/media/neat_crossover.PNG": "/static/media/neat_crossover.9acd05efefd70b21c7c5.PNG",
+    "static/media/neat_mutation.PNG": "/static/media/neat_mutation.0b37318ab0816b8580d5.PNG",
+    "static/media/neat_genome.PNG": "/static/media/neat_genome.8c9e6d33994908eea33e.PNG",
+    "static/media/roul_infographic.png": "/static/media/roul_infographic.978b6700add6c156920e.png",
+    "static/media/ANN_infographic.png": "/static/media/ANN_infographic.c3f313f885c571ed36a8.png",
+    "static/media/rank_infographic.png": "/static/media/rank_infographic.72ef36c3029d89cdbf52.png",
+    "static/media/double_point_infographic.png": "/static/media/double_point_infographic.0a8fd9632deea9da7beb.png",
+    "static/media/neuron_infographic.png": "/static/media/neuron_infographic.a501dee58a09834b6468.png",
+    "static/media/single_point_infographic.png": "/static/media/single_point_infographic.8025da536825e6f7e76a.png",
+    "static/media/tour_infographic.png": "/static/media/tour_infographic.26938736ef9ebd228ebe.png",
+    "static/media/mutation_infographic.png": "/static/media/mutation_infographic.2640bbeeb6ae48c23310.png",
+    "static/media/speciation_function.PNG": "/static/media/speciation_function.7b815929d0bf3b701c5d.PNG",
+    "index.html": "/index.html",
+    "main.5e1c6555.css.map": "/static/css/main.5e1c6555.css.map",
+    "main.7eeba825.js.map": "/static/js/main.7eeba825.js.map"
   },
   "entrypoints": [
-    "static/css/main.c564a4ae.css",
-    "static/js/main.ba8ad6df.js"
+    "static/css/main.5e1c6555.css",
+    "static/js/main.7eeba825.js"
   ]
 }
