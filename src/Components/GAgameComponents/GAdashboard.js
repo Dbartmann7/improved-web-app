@@ -1,8 +1,7 @@
-import { useEffect, useRef } from "react"
+import { useRef } from "react"
 import Select from "react-select"
 import { states } from "../../States"
 import "../Dashboard.css"
-import InfoPopup from "./Home"
 const GAdashboard = (props) =>{
     const {setGameState,
             popSize, setPopSize,
@@ -64,7 +63,7 @@ const GAdashboard = (props) =>{
             alert("Please enter a valid Mutation Rate (between 0 and 1)")
             return
         }
-        if(!checkValid(tourSize, validation.tournamentSize, 1, Math.floor(popSize/2))){
+        if(!checkValid(tourSize, validation.tournamentSize, 1, popSize)){
             alert("Please enter a valid Tournament Size")
             return
         }

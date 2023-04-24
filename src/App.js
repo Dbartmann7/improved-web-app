@@ -22,15 +22,15 @@ function App() {
     <>
     <NavBar setGameState={setGameState}/>
     <Routes>
-      <Route path="/" element={
+      <Route path="/improved-web-app/" element={
         <Home
         />
       }/>
-      <Route path="/GAgame" element={<GAgame
+      <Route path="/improved-web-app/GAgame" element={<GAgame
         stateRef={stateRef}
         setGameState={setGameState}
       />}/>
-      <Route path="/NEATgame" element={<NEATgame
+      <Route path="/improved-web-app/NEATgame" element={<NEATgame
         stateRef={stateRef}
         setGameState={setGameState}
       />}/>

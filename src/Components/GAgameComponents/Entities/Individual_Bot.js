@@ -30,8 +30,6 @@ export class Individual_Bot extends Entity{
                 this.x += this.speed
             }   
         }
-
-        
         if(!this.onGround){
             this.y -= this.vy
             this.vy -= 2
@@ -42,7 +40,9 @@ export class Individual_Bot extends Entity{
         if(this.x > this.canvasData.w-this.w) this.x=this.canvasData.w-this.w
 
         this.won = isColliding(this, goalData)
- 
+        for(let i=0; i<spikes.length; i++){
+            if(isColliding(this, spikes[i])) this.kill()
+        }
         for(let i=0; i<grounds.length; i++){
          
             if(isColliding(this, grounds[i])){

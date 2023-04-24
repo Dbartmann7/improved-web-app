@@ -24,7 +24,7 @@ const NEATgame = (props) =>{
 
     let curBestRef = useRef()
     let overallBestRef = useRef()
-    let curGenRef = useRef()
+    
 
 
     useEffect(() =>{
@@ -77,7 +77,6 @@ const NEATgame = (props) =>{
             animationRef.current = requestAnimationFrame(run)
         }
         animationRef.current = requestAnimationFrame(run)
-
         //cleanup
         return() =>{
             cancelAnimationFrame(animationRef.current)

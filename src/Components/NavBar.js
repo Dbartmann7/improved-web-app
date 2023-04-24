@@ -6,9 +6,12 @@ const NavBar = (props) =>{
     const {setGameState} = props 
     return(
     <ul className="navbar">
-        <li><Link onClick={() => setGameState(states.paused)} to="/GAgame" style={{textDecoration: "none", color:"black"}}>Genetic Algorithm</Link></li>
-        <li><Link onClick={() => setGameState(states.paused)} to="/NEATgame" style={{textDecoration: "none", color: "black"}}>NEAT Algorithm</Link></li>
-        <li><Link onClick={() => setGameState(states.paused)} to="/" style={{textDecoration: "none", color: "black"}}>Home</Link></li>
+        <li><Link onClick={() => setGameState(states.paused)} to="/improved-web-app/GAgame" 
+            style={{textDecoration: "none", color:"black"}}>Genetic Algorithm</Link></li>
+        <li><Link onClick={() => setGameState(states.paused)} to="/improved-web-app/NEATgame" 
+            style={{textDecoration: "none", color: "black"}}>NEAT Algorithm</Link></li>
+        <li><Link onClick={() => setGameState(states.paused)} to="/improved-web-app/" 
+            style={{textDecoration: "none", color: "black"}}>Home</Link></li>
     </ul>
     )
 }

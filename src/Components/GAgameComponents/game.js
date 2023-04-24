@@ -36,29 +36,19 @@ export class Game{
 
         // main game loop
         this.run = (context) =>{
-            
-            
                 for(let i=0; i<this.speedMultiplier; i++){
                     this.update()
                     this.impactCount++
                     
                 }
                 this.draw(context)
-                
-                
                 if(this.impactCount === this.moveImpact){
                     this.population.iteration++
                     this.impactCount=0
                 }
-                
-                
-                
-                
                 if(this.population.iteration >= this.population.numMoves){
                     this.endGame()
-                }
-                
-            
+                }    
         }
         
     }

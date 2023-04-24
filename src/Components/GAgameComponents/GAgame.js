@@ -127,34 +127,29 @@ const GAgame = (props) =>{
                     break
                 case states.starting:
                     console.log("starting...")
-                    
                     initialise()
                     setGameState(states.running)
-                  
-                    
                     break
                 case states.running:
                     contextRef.current.clearRect(0,0, canvasData.w, canvasData.h)
                     gameRef.current.run(contextRef.current)
-  
                     setWinGens(gameRef.current.winGen)
                     setWinMoves(gameRef.current.winMoves)
                     setCurGen(gameRef.current.gen+1)
                     setCurMoves(Number(gameRef.current.numMoves))
-
                     break
                 default:
                     console.log("states are broken")
                     break
             }
         }
-
             animationRef.current = requestAnimationFrame(run)
         }
         animationRef.current = requestAnimationFrame(run)
 
         return() =>{
             cancelAnimationFrame(animationRef.current)
+            gameRef.current = null
             setGameState(states.paused)
         }
     },[])

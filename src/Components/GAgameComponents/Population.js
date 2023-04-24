@@ -29,11 +29,7 @@ export class Population{
         for(let i=0; i<this.population.length; i++){
             if(this.population[i].alive && !this.population[i].won){
                 this.population[i].update(this.iteration)
-                for(let j=0; j<spikes.length; j++){
-                    if(isColliding(this.population[i], spikes[j])){
-                        this.population[i].kill()
-                    }
-                }
+                
                 if(this.population[i].won && !this.hasWon){
                     this.hasWon = true
                 }

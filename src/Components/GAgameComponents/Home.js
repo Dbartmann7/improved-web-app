@@ -1,9 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import "../../Info.css"
 
 const Home = () =>{
     const [showingMain, setShowingMain] = useState(true)
-    const [showingTutorial, setShowingTutorial] = useState(false)
+    const [showingOverview, setShowingOverview] = useState(false)
     const [showingGA, setShowingGA] = useState(false)
     const [showingNEAT, setShowingNEAT] = useState(false)
     return (
@@ -11,7 +11,7 @@ const Home = () =>{
             <div className="info-inner">
                 {showingMain ? <div className="mainInfo">
                         <div className="infoButtonGrid">
-                            <button className="infoButton" onClick={()=>{setShowingMain(false); setShowingTutorial(true)}}>
+                            <button className="infoButton" onClick={()=>{setShowingMain(false); setShowingOverview(true)}}>
                                 <h1>Overview</h1>
                             </button>
                             <button className="infoButton" onClick={()=>{setShowingMain(false); setShowingGA(true)}}>
@@ -22,9 +22,9 @@ const Home = () =>{
                             </button>
                         </div>
                 </div>: null}
-                {showingTutorial ? <div className="tutorialInfo">
+                {showingOverview ? <div className="tutorialInfo">
                     <div className="header">
-                        <button className="backBtn" onClick={()=>{setShowingMain(true); setShowingTutorial(false)}}>
+                        <button className="backBtn" onClick={()=>{setShowingMain(true); setShowingOverview(false)}}>
                             <h1>Back</h1>
                         </button>
                         <h1>Overview</h1>
@@ -295,7 +295,6 @@ const Home = () =>{
             </div>
         </div>
     )
-
 }
 
 export default Home
