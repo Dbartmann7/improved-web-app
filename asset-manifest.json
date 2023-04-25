@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/improved-web-app/static/css/main.5e1c6555.css",
-    "main.js": "/improved-web-app/static/js/main.e0265258.js",
+    "main.css": "/improved-web-app/static/css/main.6e37b902.css",
+    "main.js": "/improved-web-app/static/js/main.af829221.js",
     "static/media/neat_crossover.PNG": "/improved-web-app/static/media/neat_crossover.9acd05efefd70b21c7c5.PNG",
     "static/media/neat_mutation.PNG": "/improved-web-app/static/media/neat_mutation.0b37318ab0816b8580d5.PNG",
     "static/media/neat_genome.PNG": "/improved-web-app/static/media/neat_genome.8c9e6d33994908eea33e.PNG",
@@ -15,11 +15,11 @@
     "static/media/mutation_infographic.png": "/improved-web-app/static/media/mutation_infographic.2640bbeeb6ae48c23310.png",
     "static/media/speciation_function.PNG": "/improved-web-app/static/media/speciation_function.7b815929d0bf3b701c5d.PNG",
     "index.html": "/improved-web-app/index.html",
-    "main.5e1c6555.css.map": "/improved-web-app/static/css/main.5e1c6555.css.map",
-    "main.e0265258.js.map": "/improved-web-app/static/js/main.e0265258.js.map"
+    "main.6e37b902.css.map": "/improved-web-app/static/css/main.6e37b902.css.map",
+    "main.af829221.js.map": "/improved-web-app/static/js/main.af829221.js.map"
   },
   "entrypoints": [
-    "static/css/main.5e1c6555.css",
-    "static/js/main.e0265258.js"
+    "static/css/main.6e37b902.css",
+    "static/js/main.af829221.js"
   ]
 }
