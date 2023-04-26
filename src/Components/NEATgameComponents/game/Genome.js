@@ -1,6 +1,5 @@
-//The Genome Class
-//Well.. this is the main class
-//This is where all the magic appends
+//This class was taken from the NEATjs library by GabrialTavernini (Link: https://github.com/GabrielTavernini/NeatJS/tree/master/src)
+// any code that has been altered by me or added will be clearly annotated. Any other code was made by Gabrial Tavernini
 
 import Node from "./Node.js";
 import Connection from "./Connection.js";
@@ -167,6 +166,7 @@ export default class Genome {
 			//ADD Node
 			this.addNode();
 		}
+		
 	}
 
 	addNode() { //Add a node to the network

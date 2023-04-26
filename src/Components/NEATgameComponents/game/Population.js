@@ -1,5 +1,5 @@
-//The Population Class
-//Here is where the power of all the classes
+//This class was taken from the NEATjs library by GabrialTavernini (Link: https://github.com/GabrielTavernini/NeatJS/tree/master/src)
+// any code that has been altered by me or added will be clearly annotated. Any other code was made by Gabrial Tavernini
 import Player from "./Player.js";
 
 //comes together to destroy the game score records
@@ -100,32 +100,12 @@ export default class Population{
 		});
 	}
 
-	tournamentSelection(){
-		for(let i=0; i<this.population.length; i++){
-			let participents=[]
-			for(let j=0; j<2; j++){
-				participents.push(Math.floor(Math.random() *  this.population.length))
-			}
-
-			let winner = false
-			for(let j=0; j<participents.length; j++){
-				if(!winner){
-					winner = participents[j]
-				}else{
-					if(this.population[winner].fitness < this.population[participents[j]].fitness){
-						winner = participents[j]
-					}
-				}
-			}
-			this.matingPool.push(winner)
-		}
-	}
-
 	selectPlayer(){
 		let rand = Math.floor(Math.random() *  this.matingPool.length);
 		return this.population[this.matingPool[rand]];
 	}
 
+	// this is a new function added by me
 	getBestScore(){
 		for(let i=0; i<this.population.length; i++){
 			if(this.population[i].score > this.bestScore){
@@ -135,6 +115,7 @@ export default class Population{
 		return this.bestScore
 	}
 
+	// this is a new function added by me
 	draw(ctx){
 		for(let i=0; i<this.population.length; i++){
 			this.population[i].draw(ctx)

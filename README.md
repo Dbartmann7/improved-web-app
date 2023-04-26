@@ -2,7 +2,12 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Set Up
+Before trying to run the code, make sure the proper node modules are installed. Run "npm install" to install all node modules required.
+If this doesnt work, run "npm install react", "npm install react-router" and "npm install react-select"
+
 ## Available Scripts
+
 
 In the project directory, you can run:
 

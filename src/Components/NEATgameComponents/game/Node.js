@@ -1,3 +1,5 @@
+//This class was taken from the NEATjs library by GabrialTavernini (Link: https://github.com/GabrielTavernini/NeatJS/tree/master/src)
+// any code that has been altered by me or added will be clearly annotated. Any other code was made by Gabrial Tavernini
 var activationsNames = ["Sigmoid", "Identity", "Step", "Tanh", "ReLu"]; //Used in the svg drawing
 
 //The Node Class
@@ -87,7 +89,7 @@ export default class Node {
 		}
 	}
 
-	// from https://stackoverflow.com/questions/25582882/javascript-math-random-normal-distribution-gaussian-bell-curve
+	// added by me but taken from https://stackoverflow.com/questions/25582882/javascript-math-random-normal-distribution-gaussian-bell-curve
 	randomGaussian() {
 		let u = 1 - Math.random(); // Converting [0,1) to (0,1]
 		let v = Math.random();

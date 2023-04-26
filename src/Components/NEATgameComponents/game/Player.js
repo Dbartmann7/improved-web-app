@@ -1,6 +1,6 @@
-//The Player Class
-//The interface between our 
-//NeuralNetwork and the game 
+//This class was taken from the NEATjs library by GabrialTavernini (Link: https://github.com/GabrielTavernini/NeatJS/tree/master/src)
+// any code that has been altered by me or added will be clearly annotated. Any other code was made by Gabrial Tavernini
+
 import { isColliding } from "./Collision.js";
 import Genome from "./Genome.js";
 export default class Player{
@@ -43,7 +43,7 @@ export default class Player{
 	}
 
 
-	//Game stuff
+	// this function was altered by me
 	look(nearestCube){
 		
 		let dist = Math.sqrt(((nearestCube.x) ^2) + ((this.y - nearestCube.y)^2))
@@ -53,11 +53,14 @@ export default class Player{
         this.vision = [this.x/100, nearestCube.deadly, dist/100]
 	}
 
+
 	think(){
 		this.decisions = this.brain.feedForward(this.vision);
 	}
 
+	// this function was altered by me
 	move(){
+		
 		if(this.decisions[0] > 0.7){
             this.x += this.speed
         }
@@ -66,17 +69,20 @@ export default class Player{
         }
 	}
 
+	// this function was altered by me
     checkBounds(width){
         if(this.x < 0) this.x=0
         if(this.x > width-this.w) this.x=width-this.w
     }
 
+	// this function was altered by me
 	update(nearestBall){
 		if(isColliding(nearestBall, this) && this.collidingWith === null){
             if(!nearestBall.deadly){
 				this.score++;
             	this.collidingWith = nearestBall;
-				console.log(this.score)
+				
+				console.log(this.brain.layers)
 			}else{
 				this.kill()
 			}
@@ -84,10 +90,12 @@ export default class Player{
         }
 	}
 
+	// this is a new function created by me
 	kill(){
 		this.dead = true;
 	}
 
+	// this is a new function created by me
     draw(context){
 		context.fillStyle = "black"
         context.fillRect(this.x-5, this.y-5, this.w+10, this.h+10) 
@@ -101,7 +109,8 @@ export default class Player{
 		
     }
 
-	calculateFitness(){ //Fitness function : adapt it to the needs of the
+	// this function was altered by me
+	calculateFitness(){ 
 		this.fitness = this.score;
 		if(this.score > 0){
 			this.fitness /= this.brain.calculateWeight();

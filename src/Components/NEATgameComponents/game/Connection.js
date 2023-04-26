@@ -1,6 +1,5 @@
-//The Connection Class
-//Is where all the weights are stored
-//Mostly used for a cleaner and more readable code.
+//This class was taken from the NEATjs library by GabrialTavernini (Link: https://github.com/GabrielTavernini/NeatJS/tree/master/src)
+// any code that has been altered by me or added will be clearly annotated. Any other code was made by Gabrial Tavernini
 export default class Connection {
 	constructor(from, to, weight){
 		this.fromNode = from; //type: Node
@@ -27,7 +26,7 @@ export default class Connection {
 		return (1/2)*(this.fromNode.number + this.toNode.number)*(this.fromNode.number + this.toNode.number + 1) + this.toNode.number;
 	}
 
-	// from https://stackoverflow.com/questions/25582882/javascript-math-random-normal-distribution-gaussian-bell-curve
+	// added by me but taken from https://stackoverflow.com/questions/25582882/javascript-math-random-normal-distribution-gaussian-bell-curve
 	randomGaussian() {
 		let u = 1 - Math.random(); // Converting [0,1) to (0,1]
 		let v = Math.random();
